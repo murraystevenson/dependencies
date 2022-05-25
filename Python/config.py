@@ -73,21 +73,21 @@
 
 		"downloads" : [
 
-			"https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz",
+			"https://www.python.org/ftp/python/3.8.13/Python-3.8.13.tar.xz",
 
 		],
 
 		"publicVariables" : {
 
-			"pythonVersion" : "3.7",
+			"pythonVersion" : "3.8",
 			# Python 3 unconditionally puts these infuriating "m" ABI suffixes on
 			# everything. This is intended to allow different types of Python builds
 			# to exist in the same place, but that's not a problem we have. The problem
 			# we _do_ have is that a bunch of our projects get tripped up by these
 			# suffixes. See : https://www.python.org/dev/peps/pep-3149.
-			"pythonABIVersion" : "3.7m",
+			"pythonABIVersion" : "3.8m",
 			"pythonMajorVersion" : "3",
-			"pythonMinorVersion" : "7",
+			"pythonMinorVersion" : "8",
 
 		},
 
@@ -104,6 +104,12 @@
 		"variables" : {
 
 			"libraryType" : "--enable-framework={buildDir}/lib",
+
+		},
+
+		"environment" : {
+
+			"MACOS_DEPLOYMENT_TARGET" : "11.0",
 
 		},
 
