@@ -1,0 +1,31 @@
+--- a/src/liboslexec/CMakeLists.txt
++++ b/src/liboslexec/CMakeLists.txt
+@@ -208,6 +212,12 @@
+     target_link_libraries (${local_lib} PRIVATE "Version.lib")
+ endif()
+ 
++# hack to workaround libxml2.tbd not being visible
++if (APPLE)
++    list(REMOVE_ITEM LLVM_SYSTEM_LIBRARIES "-llibxml2.tbd")
++    list(APPEND LLVM_SYSTEM_LIBRARIES "-lxml2")
++endif()
++
+ target_link_libraries (${local_lib}
+     PUBLIC
+         OpenImageIO::OpenImageIO
+
+--- a/src/liboslcomp/CMakeLists.txt
++++ b/src/liboslcomp/CMakeLists.txt
+@@ -16,6 +16,12 @@
+ 
+ FLEX_BISON (osllex.l oslgram.y osl lib_src compiler_headers)
+ 
++# hack to workaround libxml2.tbd not being visible
++if (APPLE)
++    list(REMOVE_ITEM LLVM_SYSTEM_LIBRARIES "-llibxml2.tbd")
++    list(APPEND LLVM_SYSTEM_LIBRARIES "-lxml2")
++endif()
++
+ add_library (${local_lib} ${lib_src})
+ target_include_directories(${local_lib}
+     PUBLIC
