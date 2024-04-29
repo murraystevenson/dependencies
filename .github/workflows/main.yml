@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - '*_maintenance'
+      - 'CI2'
   pull_request:
     branches:
       - '*'
