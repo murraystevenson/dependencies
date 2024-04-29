@@ -81,6 +81,8 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_14.3.1.app/Contents/Developer
         # Make homebrew's Python 3.11 available on `PATH`.
         # echo /opt/homebrew/opt/python@3.11/libexec/bin:$PATH > $GITHUB_PATH
+        # remove all homebrew python installs
+        brew uninstall python --force --ignore-dependencies
         echo `which python`
         echo `which python3`
         echo `which pip`
