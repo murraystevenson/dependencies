@@ -76,7 +76,7 @@ jobs:
         # Choose the earliest Xcode version available on a macos-14 runner.
         sudo xcode-select -s /Applications/Xcode_14.3.1.app/Contents/Developer
         # Make homebrew's Python 3.11 available on `PATH`.
-        echo /opt/homebrew/opt/python@3.11/libexec/bin:$PATH > $GITHUB_PATH
+        # echo /opt/homebrew/opt/python@3.11/libexec/bin:$PATH > $GITHUB_PATH
         # Install build requirements.
         sudo pip3 install scons==4.6.0 --break-system-packages
         brew install gpatch
