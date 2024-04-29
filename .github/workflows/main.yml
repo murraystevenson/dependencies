@@ -38,6 +38,7 @@ jobs:
             os: ubuntu-20.04
             publish: true
             containerImage: ghcr.io/gafferhq/build/build:3.0.0
+            jobs: 4
 
           - name: macos-arm64
             os: macos-14
@@ -106,7 +107,7 @@ jobs:
 
     - name: Build Dependencies
       run: |
-        ./build.py --cleanup --jobs ${{ matrix.jobs || 2 }} --buildDir ${{ env.DEPENDENCIES_BUILD_DIR }}/${{ env.DEPENDENCIES_BUILD_NAME }} --package ${{ env.DEPENDENCIES_BUILD_NAME }}.${{ env.PACKAGE_EXTENSION }}
+        ./build.py --cleanup --jobs ${{ matrix.jobs }} --buildDir ${{ env.DEPENDENCIES_BUILD_DIR }}/${{ env.DEPENDENCIES_BUILD_NAME }} --package ${{ env.DEPENDENCIES_BUILD_NAME }}.${{ env.PACKAGE_EXTENSION }}
       env:
         PYTHONUTF8: 1
 
