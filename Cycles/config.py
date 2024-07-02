@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/blender/cycles/archive/refs/tags/v4.0.2.tar.gz",
+		"https://github.com/blender/cycles/archive/refs/tags/v4.1.1.tar.gz",
 
 	],
 
@@ -13,6 +13,13 @@
 	"dependencies" : [ "Boost", "OpenJPEG", "OpenImageIO", "TBB", "Alembic", "Embree", "OpenColorIO", "OpenVDB", "OpenShadingLanguage", "OpenSubdiv", "OpenPGL", "LibWebP" ],
 
 	"commands" : [
+
+		# The Cycles 4.1.1 archive includes empty folders under `./lib`
+		# named `{platform}_{architecture}`. The existence of a folder
+		# in lib matching the current platform and architecture causes
+		# the build to only look for dependencies within it, so we
+		# remove them to allow dependencies to be found in `{buildDir}`.
+		"rmdir ./lib/*",
 
 		"mkdir build",
 		"cd build &&"
