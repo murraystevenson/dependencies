@@ -6,6 +6,8 @@
 - Cycles :
   - Updated to version 4.1.1.
   - Disabled CUDA binary generation for Kepler and Maxwell architecture GPUs.
+  - Enabled support for denoising with OpenImageDenoise.
+- OpenImageDenoise : Added version 2.2.2.
 
 8.x.x (relative to 8.0.1)
 -----
