@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - '*_maintenance'
+      - 'xcode15'
   pull_request:
     branches:
       - '*'
