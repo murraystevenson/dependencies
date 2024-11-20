@@ -73,11 +73,10 @@ jobs:
 
     - name: Install toolchain (macOS)
       run: |
-        # Choose the earliest Xcode version available on a macos-14 runner.
-        sudo xcode-select -s /Applications/Xcode_14.3.1.app/Contents/Developer
         # Install build requirements.
-        sudo pip3 install scons==4.6.0 --break-system-packages
+        pipx install scons==4.6.0
         brew install gpatch
+        echo "/opt/homebrew/opt/gpatch/libexec/gnubin" >> $GITHUB_PATH
         brew install bison
         # Make sure bison is discoverable.
         echo BISON_ROOT=/opt/homebrew/opt/bison >> $GITHUB_ENV
