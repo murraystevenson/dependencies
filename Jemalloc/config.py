@@ -12,11 +12,17 @@
 
 	"commands" : [
 
-		"./configure --prefix={buildDir}",
+		"./configure --prefix={buildDir} {extraArguments}",
 		"make -j {jobs}",
 		"make install"
 
 	],
+
+	"variables" : {
+
+		"extraArguments" : "",
+
+	},
 
 	"manifest" : [
 
@@ -24,4 +30,15 @@
 		"lib/libjemalloc*{sharedLibraryExtension}*",
 
 	],
+
+	"platform:macos" : {
+
+		"variables" : {
+
+			"extraArguments" : "--enable-zone-allocator=no",
+
+		},
+
+	},
+
 }

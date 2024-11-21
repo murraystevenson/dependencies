@@ -44,6 +44,7 @@
 			# we've never packaged it anyway.
 			" -D USE_OPENGL=NO"
 			" -D USE_QT=NO"
+			" {extraArguments}"
 			" ..",
 		"cd gafferBuild && make install -j {jobs} VERBOSE=1",
 		"{extraCommands}",
@@ -52,6 +53,7 @@
 
 	"variables" : {
 
+		"extraArguments" : "",
 		"extraCommands" : "",
 
 	},
@@ -72,6 +74,7 @@
 
 		"variables" : {
 
+			"extraArguments" : "-D CMAKE_CXX_FLAGS='-DBOOST_NO_CXX98_FUNCTION_BASE=1'",
 			"extraCommands" : "mv {buildDir}/lib/python{pythonVersion}/site-packages/OpenImageIO {pythonLibDir}/python{pythonVersion}/site-packages/OpenImageIO"
 
 		},

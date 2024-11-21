@@ -28,9 +28,14 @@
 	"commands" : [
 
 		"./bootstrap.sh --prefix={buildDir} --with-python={buildDir}/bin/python --with-python-root={buildDir} --without-libraries=log --without-icu",
-		"./b2 -d+2 -j {jobs} --disable-icu cxxflags='-std=c++{c++Standard}' cxxstd={c++Standard} variant=release link=shared threading=multi install",
+		"./b2 -d+2 -j {jobs} --disable-icu cxxflags='-std=c++{c++Standard} {extraCXXFlags}' cxxstd={c++Standard} variant=release link=shared threading=multi install",
 
 	],
+
+	"variables" : {
+
+		"extraCXXFlags" : "",
+	},
 
 	"manifest" : [
 
@@ -39,5 +44,15 @@
 		"lib/libboost_test_exec_monitor.a",
 
 	],
+
+	"platform:macos" : {
+
+		"variables" : {
+
+			"extraCXXFlags" : "-DBOOST_NO_CXX98_FUNCTION_BASE -D_HAS_AUTO_PTR_ETC=0 -Wno-deprecated-builtins -Wno-deprecated-declarations -Wno-enum-constexpr-conversion"
+
+		},
+
+	},
 
 }

@@ -36,6 +36,7 @@
 			" -D WITH_CYCLES_HYDRA_RENDER_DELEGATE=OFF"
 			" -D CMAKE_POSITION_INDEPENDENT_CODE=ON"
 			" -D WITH_CYCLES_USD=OFF"
+			" {extraArguments}"
 			" ..",
 		"cd build && make install -j {jobs} VERBOSE=1",
 
@@ -48,10 +49,32 @@
 
 	],
 
+	"variables" : {
+
+		"extraArguments" : "",
+
+	},
+
 	"manifest" : [
 
 		"cycles",
 
 	],
+
+	"platform:macos" : {
+
+		"environment" : {
+
+			"DYLD_FALLBACK_LIBRARY_PATH" : "{buildDir}/lib",
+
+		},
+
+		"variables" : {
+
+			"extraArguments" : "-D CMAKE_CXX_FLAGS='-DBOOST_NO_CXX98_FUNCTION_BASE=1'",
+
+		},
+
+	},
 
 }

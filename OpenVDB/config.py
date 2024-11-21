@@ -38,12 +38,19 @@
 			" -D Python_FIND_VERSION_MAJOR={pythonMajorVersion}"
 			" -D BOOST_ROOT={buildDir}"
 			" -D Boost_NO_SYSTEM_PATHS=ON"
+			" {extraArguments}"
 			" .."
 		,
 
 		"cd build && make VERBOSE=1 -j {jobs} && make install",
 
 	],
+
+	"variables" : {
+
+		"extraArguments" : "",
+
+	},
 
 	"manifest" : [
 
@@ -54,5 +61,14 @@
 		"python/pyopenvdb*",
 
 	],
+
+	"platform:macos" : {
+
+		"variables" : {
+
+			"extraArguments" : "-D CMAKE_CXX_FLAGS='-DBOOST_NO_CXX98_FUNCTION_BASE=1'",
+
+		},
+	}
 
 }

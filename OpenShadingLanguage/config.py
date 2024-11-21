@@ -83,6 +83,7 @@
 
 		"variables" : {
 
+			"extraArguments" : "-D CMAKE_SHARED_LINKER_FLAGS='-Wl,-no_warn_duplicate_libraries'",
 			"extraCommands" : "mv {buildDir}/lib/python{pythonVersion}/site-packages/oslquery.so {pythonLibDir}/python{pythonVersion}/site-packages/oslquery.so",
 			"useBatched" : "0",
 
