@@ -90,7 +90,7 @@
 
 		"variables" : {
 
-			"extraArgs" : "-no-freetype QMAKE_APPLE_DEVICE_ARCHS=arm64",
+			"extraArgs" : "-no-freetype QMAKE_APPLE_DEVICE_ARCHS=arm64 -qt-zlib",
 
 		},
 
