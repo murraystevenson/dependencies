@@ -1,3 +1,8 @@
+10.x.x (relative to 10.0.0)
+------
+
+- Cortex : Updated to version 10.6.0.1.
+
 10.0.0 (relative to 9.1.0)
 ------
 
