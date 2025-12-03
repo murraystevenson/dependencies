@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/b795e3e92ae1f2c5da5024b61295b0eb41486a65.tar.gz"
+		"https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.14.8.0.tar.gz"
 
 	],
 
