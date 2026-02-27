@@ -109,10 +109,14 @@ def __decompress( archive, cleanup = False ) :
 				extracted = f.extract( info.filename )
 				os.chmod( extracted, ( info.external_attr >> 16 ) | stat.S_IWUSR )
 			files = f.namelist()
-	else :
+	elif archive.endswith( ".tar.bz2" ) or archive.endswith( "tar.gz" ) or archive.endswith( ".tgz" ) or archive.endswith( ".tar.xz" ) :
 		with tarfile.open( archive, "r:*" ) as f :
 			f.extractall()
 			files = f.getnames()
+	else :
+		# Plain file. Just copy over.
+		shutil.copy( archive, "./" )
+		files = [ os.path.basename( archive ) ]
 
 	if cleanup :
 		os.unlink( archive )
