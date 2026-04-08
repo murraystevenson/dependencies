@@ -47,6 +47,9 @@ Dictionary fields
 - enabled : May be set to `False` to disable a project entirely. This is
   only expected to be useful in conjunction with platform overrides or
   variants.
+- extraDependencies : List of projects to be appended to `dependencies`
+  when the config is loaded. Useful for specifying additional
+  platform-specific dependencies via a platform override.
 
 ### Packaging
 
@@ -220,6 +223,9 @@ def __loadConfigs( variables, variants ) :
 		for variantProject, variant in variants.items() :
 			__applyConfigOverrides( config, "variant:{}:{}".format( variantProject, variant ) )
 		__applyConfigOverrides( config, { "darwin": "platform:macos", "win32": "platform:windows" }.get( sys.platform, "platform:linux" ) )
+		if "extraDependencies" in config :
+			config.setdefault( "dependencies", [] ).extend( config["extraDependencies"] )
+
 		if config.get( "enabled", True ) :
 			configs[project] = config
 
