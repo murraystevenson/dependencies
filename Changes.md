@@ -1,7 +1,10 @@
 11.x.x (relative to 11.0.0a4)
 ------
 
-
+- Cycles :
+  - Updated to version 5.1.0
+  - Even motion blur samples support patch (from Blender upstream)
+- SSE2NEON : Added version 1.9.1.
 
 11.0.0a4 (relative to 11.0.0a3)
 --------
