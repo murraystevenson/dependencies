@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - '*_maintenance'
+      - 'osl115'
   pull_request:
     branches:
       - '*'
