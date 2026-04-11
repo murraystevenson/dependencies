@@ -1,6 +1,7 @@
 11.x.x (relative to 11.0.0a4)
 ------
 
+- Cortex : Updated to version 10.7.0.0a9.
 - OpenShadingLanguage : Updated to version 1.15.3.0
 
 11.0.0a4 (relative to 11.0.0a3)
