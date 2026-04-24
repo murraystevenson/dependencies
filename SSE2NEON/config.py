@@ -15,6 +15,15 @@
 
 	],
 
+	# sse2neon is only required on macOS
+	"enabled" : False,
+
+	"platform:macos" : {
+
+		"enabled" : True,
+
+	},
+
 	"manifest" : [
 
 		"include/sse2neon.h",
