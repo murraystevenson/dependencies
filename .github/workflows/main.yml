@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - '*_maintenance'
+      - 'cycles510Update'
   pull_request:
     branches:
       - '*'
