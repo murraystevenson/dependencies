@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - '*_vs2022'
+      - 'pyBindRollback'
   pull_request:
     branches:
       - '*'
