@@ -107,8 +107,8 @@
 
 		"postMovePaths" : {
 
-			"../OpenColorIO-Configs-1.0_r2/nuke-default/config.ocio" : "{buildDir}/openColorIO",
-			"../OpenColorIO-Configs-1.0_r2/nuke-default/luts" : "{buildDir}/openColorIO",
+			"../studio-config-v3.0.0_aces-v2.0_ocio-v2.4.ocio" : "{buildDir}/openColorIO",
+			"../cg-config-v3.0.0_aces-v2.0_ocio-v2.4.ocio" : "{buildDir}/openColorIO",
 
 		}
 
