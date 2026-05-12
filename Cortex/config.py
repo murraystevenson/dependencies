@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/ImageEngine/cortex/archive/refs/tags/10.7.0.0a9.tar.gz"
+		"https://github.com/ImageEngine/cortex/archive/refs/tags/10.7.0.0a10.tar.gz"
 
 	],
 
@@ -140,6 +140,7 @@
 				" ALEMBIC_INCLUDE_PATH={buildDir}\\include"
 				" ARNOLD_ROOT=%ARNOLD_ROOT%"
 				" RMAN_ROOT=%RMAN_ROOT%"
+				" NANOBIND_INCLUDE_PATH={buildDir}\\include"
 				" USD_INCLUDE_PATH={buildDir}\\include"
 				" USD_LIB_PATH={buildDir}\\lib"
 				" USD_LIB_PREFIX=usd_"
