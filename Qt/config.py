@@ -58,6 +58,8 @@
 			" {extraArgs}"
 			" -I {buildDir}/include -I {buildDir}/include/freetype2"
 			" -L {buildDir}/lib"
+			" --"
+ 			" -DPNG_LIBRARY={buildDir}/lib/libpng.a"
 		,
 
 		"cmake --build . --parallel {jobs} && cmake --install .",
