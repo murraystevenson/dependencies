@@ -2,10 +2,10 @@
 
 	"downloads" : [
 
-		"https://download.sourceforge.net/libpng/libpng-1.6.37.tar.gz"
+		"https://github.com/pnggroup/libpng/archive/refs/tags/v1.6.58.tar.gz"
 
 	],
-    
+
 	"dependencies" : [ "ZLib" ],
 
 	"url" : "http://www.libpng.org",
@@ -13,9 +13,20 @@
 
 	"commands" : [
 
-		"./configure --prefix={buildDir}",
-		"make -j {jobs}",
-		"make install",
+		"mkdir build",
+		"cd build && "
+			" cmake"
+			" -D CMAKE_INSTALL_PREFIX={buildDir}"
+			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
+			" -D PNG_SHARED=OFF"
+			" -D PNG_STATIC=ON"
+			" -D PNG_EXECUTABLES=OFF"
+			" -D PNG_TESTS=OFF"
+			" -D PNG_TOOLS=OFF"
+			" -D PNG_FRAMEWORK=OFF"
+			" -D CMAKE_POSITION_INDEPENDENT_CODE=ON"
+			" ..",
+		"cd build && make -j {jobs} && make install",
 
 	],
 
@@ -23,10 +34,10 @@
 
 		"include/png*",
 		"include/libpng*",
-		"{sharedLibraryDir}/libpng*{sharedLibraryExtension}*",	# lib prefix is accurate for all platforms
-		"lib/libpng*.lib",
+		"{sharedLibraryDir}/libpng*{staticLibraryExtension}",	# lib prefix is accurate for all platforms
 
 	],
+
 	"platform:windows" : {
 
 		"commands" : [
@@ -39,6 +50,13 @@
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
 				" -D ZLIB_INCLUDE_DIR={buildDir}\\include"
 				" -D ZLIB_LIBRARY={buildDir}\\lib\\zlib.lib"
+				" -D PNG_SHARED=OFF"
+				" -D PNG_STATIC=ON"
+				" -D PNG_EXECUTABLES=OFF"
+				" -D PNG_TESTS=OFF"
+				" -D PNG_TOOLS=OFF"
+				" -D PNG_FRAMEWORK=OFF"
+				" -D CMAKE_POSITION_INDEPENDENT_CODE=ON"
 				" ..",
 
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",

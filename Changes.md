@@ -1,7 +1,7 @@
 11.x.x (relative to 11.0.0a8)
 ------
 
-
+- LibPNG : Updated to version 1.6.58.
 
 11.0.0a8 (relative to 11.0.0a7)
 --------
