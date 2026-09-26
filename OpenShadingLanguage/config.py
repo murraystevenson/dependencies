@@ -10,7 +10,7 @@
 
 	"license" : "LICENSE.md",
 
-	"dependencies" : [ "OpenImageIO", "LLVM", "PugiXML", "Python", "Robin-map" ],
+	"dependencies" : [ "OpenImageIO", "LLVM", "PugiXML", "Python", "Robin-map", "Optix" ],
 
 	"environment" : {
 
@@ -94,7 +94,6 @@
 
 		"variables" : {
 
-			"version" : "1.13.11.0",
 			"cmakeGenerator" : "\"NMake Makefiles JOM\"",
 
 		},
@@ -115,7 +114,9 @@
 		],
 
 		"environment" : {
+
 			"PATH" : "{buildDir}\\lib;{buildDir}\\bin;%ROOT_DIR%\\OpenShadingLanguage\\working\\OpenShadingLanguage-Release-{version}\\gafferBuild\\src\\liboslcomp;%ROOT_DIR%\\OpenShadingLanguage\\working\\OpenShadingLanguage-Release-{version}\\gafferBuild\\src\\oslc;%PATH%",
+			"OPTIX_INSTALL_DIR" : "{buildDir}",
 
 		},
 
@@ -134,7 +135,7 @@
 				" -D CMAKE_PREFIX_PATH={buildDir}"
 				" -D STOP_ON_WARNING=0"
 				" -D LLVM_DIRECTORY={buildDir}"
-				" -D USE_LLVM_BITCODE=OFF"
+				" -D USE_LLVM_BITCODE=ON"
 				" -D OSL_BUILD_TESTS=OFF"
 				" -D BOOST_ROOT={buildDir}"
 				" -D Boost_USE_STATIC_LIBS=OFF"
