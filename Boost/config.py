@@ -58,7 +58,7 @@
 			"echo ^<include^>\"{buildDir}/include\" >> user-config.jam",
 			"echo ^<search^>\"{buildDir}/lib\" ; >> user-config.jam",
 			"bootstrap.bat --prefix={buildDir} --without-libraries=log",
-			"b2 -d+2 --prefix={buildDir} --layout=system --toolset=msvc architecture=x86 address-model=64 variant=release link=shared threading=multi cxxflags=\"/std:c++{c++Standard}\" cxxstd={c++Standard} --user-config=\"user-config.jam\" install"
+			"b2 -d+2 -j {jobs} --prefix={buildDir} --layout=system --toolset=msvc architecture=x86 address-model=64 variant=release link=shared threading=multi cxxflags=\"/std:c++{c++Standard}\" cxxstd={c++Standard} --user-config=\"user-config.jam\" install"
 
 		],
 
