@@ -1,6 +1,7 @@
 11.x.x (relative to 11.0.0)
 ------
 
+- Cortex : Updated to version 10.7.3.0.
 - OpenShadingLanguage : Enabled Optix support on Windows.
 
 11.0.0 (relative to 10.0.0)
