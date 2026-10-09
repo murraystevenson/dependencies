@@ -89,6 +89,7 @@
 			 	" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
 			 	" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			 	" -D CMAKE_PREFIX_PATH={buildDir}"
+				" -D CMAKE_CXX_FLAGS=\"/utf-8\""
 			 	" -D USE_FFMPEG=NO"
 			 	" -D USE_QT=NO"
 			 	" -D USE_PYTHON=YES"
