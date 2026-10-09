@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.14.8.0.tar.gz"
+		"https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.14.11.0.tar.gz"
 
 	],
 
@@ -94,7 +94,6 @@
 
 		"variables" : {
 
-			"version" : "1.13.11.0",
 			"cmakeGenerator" : "\"NMake Makefiles JOM\"",
 
 		},
@@ -128,16 +127,12 @@
 				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
 				" -D CMAKE_CXX_COMPILER={cmakeCompiler}"
-				" -D BUILDSTATIC=OFF"
-				" -D USE_OIIO_STATIC=OFF"
 				" -D OSL_BUILD_PLUGINS=OFF"
 				" -D CMAKE_PREFIX_PATH={buildDir}"
 				" -D STOP_ON_WARNING=0"
 				" -D LLVM_DIRECTORY={buildDir}"
-				" -D USE_LLVM_BITCODE=OFF"
+				" -D USE_LLVM_BITCODE=ON"
 				" -D OSL_BUILD_TESTS=OFF"
-				" -D BOOST_ROOT={buildDir}"
-				" -D Boost_USE_STATIC_LIBS=OFF"
 				" -D LLVM_STATIC=ON"
 				" -D OPENEXR_INCLUDE_PATH={buildDir}\\include"
 				" -D OPENEXR_IMATH_LIBRARY={buildDir}\\lib\\Imath.lib"
@@ -148,7 +143,6 @@
 				" -D ZLIB_INCLUDE_DIR={buildDir}\\include"
 				" -D ZLIB_LIBRARY={buildDir}\\lib\\zlib.lib"
 				" -D EXTRA_CPP_ARGS=\" /D TINYFORMAT_ALLOW_WCHAR_STRINGS\""
-				" -D OSL_BUILD_MATERIALX=1"
 				" -D OSL_SHADER_INSTALL_DIR={buildDir}\\shaders"
 				" -D OSL_USE_OPTIX=1"
 				" -D Python_ROOT_DIR={buildDir}"
