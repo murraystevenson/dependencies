@@ -6,6 +6,7 @@
 - Cortex : Updated to version 10.7.3.1.
 - Fmt : Updated to version 12.1.0.
 - LLVM : Updated to version 20.1.8.
+- OpenSubdiv : Updated to version 3.7.0.
 - PySide : Updated to version 6.8.4.
 - Python : Updated to version 3.13.16.
 - Qt : Updated to version 6.8.4.
