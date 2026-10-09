@@ -6,6 +6,7 @@
 - Cortex : Updated to version 10.7.4.0.
 - Fmt : Updated to version 12.1.0.
 - PySide : Updated to version 6.8.5.
+- Python : Updated to version 3.13.16.
 - Qt : Updated to version 6.8.5.
 
 11.x.x (relative to 11.0.0)
