@@ -31,6 +31,7 @@
 		"./configure --prefix={buildDir} {libraryType} --with-ensurepip=install",
 		"make -j {jobs}",
 		"make install",
+		"{buildDir}/bin/python3 -m pip install setuptools==81.0.0",
 
 	],
 
