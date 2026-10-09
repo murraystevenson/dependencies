@@ -5,6 +5,7 @@
 - Boost : Updated to version 1.88.0.
 - Cortex : Updated to version 10.7.3.1.
 - Fmt : Updated to version 12.1.0.
+- FreeType : Updated to version 2.14.3.
 - LLVM : Updated to version 20.1.8.
 - OpenShadingLanguage : Updated to version 1.15.7.0.
 - OpenSubdiv : Updated to version 3.7.0.
