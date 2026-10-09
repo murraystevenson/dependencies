@@ -1,9 +1,9 @@
 --- "a/PCbuild/python.vcxproj"
 +++ "b/PCBuild/python.vcxproj"
-@@ -96,6 +96,7 @@
-       <SubSystem>Console</SubSystem>
-       <StackReserveSize Condition="$(Configuration) != 'Debug'">2000000</StackReserveSize>
-       <StackReserveSize Condition="$(Configuration) == 'Debug'">8000000</StackReserveSize>
+@@ -100,6 +100,7 @@
+       <StackReserveSize Condition="$(Configuration) == 'PGInstrument'">12000000</StackReserveSize>
+       <!-- HACK: Need additional memory to avoid crashing until gh-113655 is fixed -->
+       <StackReserveSize Condition="$(Configuration) == 'PGUpdate' and $(UseExtraStackReserve) == 'true'">3000000</StackReserveSize>
 +      <AdditionalLibraryDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\$(DEPENDENCIES_BUILD_DIR)\$(DEPENDENCIES_BUILD_NAME)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
      </Link>
    </ItemDefinitionGroup>
