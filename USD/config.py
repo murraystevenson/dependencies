@@ -173,7 +173,7 @@
 				" -D PXR_ENABLE_PRECOMPILED_HEADERS=0"
 				" -D PYSIDEUICBINARY={buildDir}/bin/uic.exe"
 				" -D PYSIDEUIC_EXTRA_ARGS=\"-g python\""
-				" -D CMAKE_CXX_FLAGS=\"-DBOOST_ALL_NO_LIB -DHAVE_SNPRINTF\""
+				" -D CMAKE_CXX_FLAGS=\"-DBOOST_ALL_NO_LIB -DHAVE_SNPRINTF /utf-8\""
 				" ..",
 
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",

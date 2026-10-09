@@ -75,7 +75,8 @@
 		"environment" : {
 
 			"PATH" : "{buildDir}/bin;{buildDir}/lib;%PATH%",
-
+			"CXXFLAGS" : "/utf-8",
+    
 		},
 
 		"commands" : [

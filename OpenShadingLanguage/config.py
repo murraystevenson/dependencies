@@ -116,7 +116,7 @@
 
 		"environment" : {
 			"PATH" : "{buildDir}\\lib;{buildDir}\\bin;%ROOT_DIR%\\OpenShadingLanguage\\working\\OpenShadingLanguage-Release-{version}\\gafferBuild\\src\\liboslcomp;%ROOT_DIR%\\OpenShadingLanguage\\working\\OpenShadingLanguage-Release-{version}\\gafferBuild\\src\\oslc;%PATH%",
-
+			"CXXFLAGS" : "/utf-8",
 		},
 
 		"commands" : [
@@ -151,7 +151,6 @@
 				" -D OSL_BUILD_MATERIALX=1"
 				" -D OSL_SHADER_INSTALL_DIR={buildDir}\\shaders"
 				" -D OSL_USE_OPTIX=1"
-				" -D CMAKE_CXX_FLAGS=\"-DBOOST_ALL_NO_LIB\""
 				" -D Python_ROOT_DIR={buildDir}"
 				" -D Python_FIND_STRATEGY=LOCATION"
 				" -D PYTHON_VERSION={pythonVersion}"
