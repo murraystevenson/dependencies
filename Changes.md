@@ -5,6 +5,7 @@
 - Boost : Updated to version 1.88.0.
 - Cortex : Updated to version 10.7.3.1.
 - Fmt : Updated to version 12.1.0.
+- LLVM : Updated to version 20.1.8.
 - PySide : Updated to version 6.8.4.
 - Python : Updated to version 3.13.16.
 - Qt : Updated to version 6.8.4.
