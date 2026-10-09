@@ -31,6 +31,7 @@
 		"./configure --prefix={buildDir} {libraryType} --with-ensurepip=install",
 		"make -j {jobs}",
 		"make install",
+		"{buildDir}/bin/python3 -m pip install setuptools==81.0.0",
 
 	],
 
@@ -422,6 +423,7 @@
 
 			# Copy the directory layout to our build directory
 			"PCbuild\\amd64\\python.exe PC\\layout -s . -b PCbuild\\amd64 -v --precompile --include-pip --include-dev --include-stable --copy {buildDir}",
+			"{buildDir}\\python.exe -m pip install setuptools==81.0.0",
 
 		],
 
