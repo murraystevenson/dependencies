@@ -2,6 +2,8 @@
 ------
 
 - C++ : Updated to c++20.
+- PySide : Updated to version 6.8.5.
+- Qt : Updated to version 6.8.5.
 
 11.x.x (relative to 11.0.0)
 ------
