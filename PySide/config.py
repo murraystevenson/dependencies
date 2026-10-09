@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.8-src/pyside-setup-opensource-src-6.5.8.tar.xz"
+		"https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.8.5-src/pyside-setup-opensource-src-6.8.5.tar.xz"
 
 	],
 
@@ -62,13 +62,11 @@
 
 	"platform:windows" : {
 
+		"workingDir" : "p",    # Shorten overall paths to avoid Windows command character limit
+
 		"manifest" : [
 
-			"include/PySide2",
-			"python/PySide2",
-			"python/pyside2uic.exe",
-			"python/shiboken2",
-			"python/shiboken2_generator",
+			# PySide is installed to `Lib/site-packages` which is included in Python's manifest.
 
 		],
 
@@ -81,7 +79,6 @@
 		},
 
 		"commands" : [
-			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-opensource-src-6.5.8 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
 			"cd ..\\p && python setup.py install"
 				" --ignore-git"
 				" --openssl={buildDir}\\bin"
@@ -89,16 +86,6 @@
 				" --qtpaths={buildDir}/bin/qtpaths6.exe"
 				" install",
 		],
-
-		"postMovePaths" : {
-
-			# "{buildDir}/lib/site-packages/PySide2/pyside2-uic.exe" : "{buildDir}/bin",
-			"{buildDir}/lib/site-packages/PySide2/uic.exe" : "{buildDir}/bin",
-			"{buildDir}/lib/site-packages/PySide2" : "{buildDir}/python",
-			"{buildDir}/lib/site-packages/shiboken2" : "{buildDir}/python",
-			"{buildDir}/lib/site-packages/shiboken2_generator" : "{buildDir}/python",
-
-		},
 
 	},
 
