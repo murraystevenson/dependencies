@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/uxlfoundation/oneTBB/archive/refs/tags/v2021.13.0.tar.gz"
+		"https://github.com/uxlfoundation/oneTBB/archive/refs/tags/v2022.3.0.tar.gz"
 
 	],
 
