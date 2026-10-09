@@ -313,7 +313,11 @@ def __buildProject( project, config, buildDir, cleanup ) :
 	fullWorkingDir = os.getcwd()
 
 	decompressedArchives = [ __decompress( "../../" + a, cleanup ) for a in archives ]
-	os.chdir( config.get( "workingDir", decompressedArchives[0] ) )
+
+	workingDir = config.get( "workingDir", decompressedArchives[0] )
+	if workingDir not in decompressedArchives :
+		os.rename( decompressedArchives[0], workingDir )
+	os.chdir( workingDir )
 
 	if config["license"] is not None :
 		licenseDir = os.path.join( buildDir, "doc/licenses" )
