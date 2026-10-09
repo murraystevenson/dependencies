@@ -3,6 +3,8 @@
 
 - C++ : Updated to c++20.
 - Cortex : Updated to version 10.7.3.1.
+- PySide : Updated to version 6.8.4.
+- Qt : Updated to version 6.8.4.
 
 11.x.x (relative to 11.0.0)
 ------

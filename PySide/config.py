@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.5.8-src/pyside-setup-opensource-src-6.5.8.tar.xz"
+		"https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.8.4-src/pyside-setup-opensource-src-6.8.4.tar.xz"
 
 	],
 
@@ -81,7 +81,7 @@
 		},
 
 		"commands" : [
-			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-opensource-src-6.5.8 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
+			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-opensource-src-6.8.4 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
 			"cd ..\\p && python setup.py install"
 				" --ignore-git"
 				" --openssl={buildDir}\\bin"
