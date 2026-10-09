@@ -545,7 +545,7 @@ variables = {
 	"pythonModuleExtension" : ".pyd" if sys.platform == "win32" else ".so",
 	"executableExtension" : ".exe" if sys.platform == "win32" else "",
 	"libraryPrefix" : "" if sys.platform == "win32" else "lib",
-	"c++Standard" : "17",
+	"c++Standard" : "20",
 	"compilerRoot" : __compilerRoot(),
 	"cmakeGenerator" : "\"Ninja\"" if sys.platform == "win32" else "\"Unix Makefiles\"",
 	"cmakeBuildType": "Release",
