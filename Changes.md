@@ -3,6 +3,7 @@
 
 - C++ : Updated to c++20.
 - Boost : Updated to version 1.88.0.
+- Blosc : Updated to version 1.21.6.
 - Cortex : Updated to version 10.7.3.1.
 - Fmt : Updated to version 12.1.0.
 - FreeType : Updated to version 2.14.3.

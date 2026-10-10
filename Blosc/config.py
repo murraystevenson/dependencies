@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/Blosc/c-blosc/archive/refs/tags/v1.21.1.tar.gz"
+		"https://github.com/Blosc/c-blosc/archive/refs/tags/v1.21.6.tar.gz"
 
 	],
 
