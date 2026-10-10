@@ -16,6 +16,7 @@
 - Python : Updated to version 3.13.16.
 - Qt : Updated to version 6.8.4.
 - TBB : Updated to version 2022.3.0.
+- ZLib : Updated to version 1.3.2.
 
 11.x.x (relative to 11.0.0)
 ------
