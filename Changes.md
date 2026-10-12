@@ -2,6 +2,7 @@
 ------
 
 - C++ : Updated to c++20.
+- Cortex : Updated to version 10.7.4.0.
 
 11.x.x (relative to 11.0.0)
 ------
