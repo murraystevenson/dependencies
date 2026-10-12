@@ -31,7 +31,7 @@
 
 		"commands" : [
 
-			"msbuild LibRaw.sln -target:libraw /property:Configuration=\"Release\" /property:PlatformToolset=v143 /property:WindowsTargetPlatformVersion=10.0.20348.0",
+			"msbuild LibRaw.sln -target:libraw /property:Configuration=\"Release\" /property:PlatformToolset=v143 /property:WindowsTargetPlatformVersion=10.0.22621.0",
 
 		],
 		
