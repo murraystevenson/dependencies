@@ -33,7 +33,7 @@
 		"commands" : [
 
 			# From the LZ4 appveyor script
-			"msbuild visual\\VS2017\\lz4.sln /m /verbosity:minimal /property:PlatformToolset=v143 /property:WindowsTargetPlatformVersion=10.0.20348.0 /t:Clean,Build /p:Platform=x64 /p:Configuration=Release",
+			"msbuild visual\\VS2017\\lz4.sln /m /verbosity:minimal /property:PlatformToolset=v143 /property:WindowsTargetPlatformVersion=10.0.22621.0 /t:Clean,Build /p:Platform=x64 /p:Configuration=Release",
 
 		],
 

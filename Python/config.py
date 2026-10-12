@@ -253,7 +253,7 @@
 		"environment" : {
 
 			"PATH" : "{buildDir}\\bin;%PATH%",
-			"DefaultWindowsSDKVersion" : "10.0.20348.0",
+			"DefaultWindowsSDKVersion" : "10.0.22621.0",
 
 		},
 
