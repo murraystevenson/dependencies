@@ -62,6 +62,7 @@
 		"commands" : [
 
 			"move ..\\clang* tools\\clang",
+			"patch -p1 < ..\\..\\patches\\windows\\clang_fma.patch.txt",
             "move ..\\cmake* ..\\cmake",
 			"mkdir build",
 			"cd build &&"
