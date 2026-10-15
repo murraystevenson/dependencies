@@ -17,6 +17,7 @@ import zipfile
 import urllib.request
 import stat
 import pathlib
+import time
 
 __version = "11.0.0"
 
@@ -303,7 +304,20 @@ def __buildProject( project, config, buildDir, cleanup ) :
 		opener = urllib.request.build_opener()
 		opener.addheaders = [ ( "Accept", "*/*" ) ]
 		urllib.request.install_opener( opener )
-		urllib.request.urlretrieve( download, archivePath )
+
+		for attempt in range( 5 ) :
+			try :
+				urllib.request.urlretrieve( download, archivePath )
+				break
+			except Exception as e :
+				if os.path.exists( archivePath ) :
+					os.remove( archivePath )
+				if attempt == 4 :
+					raise
+
+				delay = 10 * 2 ** attempt
+				sys.stderr.write( f"Download failed ({e}). Retrying in {delay} seconds\n" )
+				time.sleep( delay )
 
 	workingDir = project + "/working"
 	if os.path.exists( workingDir ) :
