@@ -1,0 +1,10 @@
+--- a/tools/clang/lib/Headers/__clang_cuda_math_forward_declares.h.orig	2026-10-15 10:38:00.571220908 -0700
++++ b/tools/clang/lib/Headers/__clang_cuda_math_forward_declares.h	2026-10-15 10:38:45.964497657 -0700
+@@ -68,6 +68,7 @@
+ __DEVICE__ float fdim(float, float);
+ __DEVICE__ double floor(double);
+ __DEVICE__ float floor(float);
++__DEVICE__ double fma(long double, long double, long double);
+ __DEVICE__ double fma(double, double, double);
+ __DEVICE__ float fma(float, float, float);
+ __DEVICE__ double fmax(double, double);
