@@ -15,7 +15,7 @@ jobs:
   buildPartOne:
     uses: ./.github/workflows/buildDependencyBatch.yml
     with:
-      projectsString: --projects LibFFI TBB Python ZLib Boost Imath OpenEXR HDF5 Alembic BitstreamVera Blosc CMark PyBind11 LibJPEG-Turbo LibTIFF LibPNG OpenJPEG Expat YAML-CPP PyString Minizip OpenColorIO LibRaw PugiXML Fmt LibWebP FreeType OpenImageIO LLVM OpenShadingLanguage GLEW OpenVDB OpenSubdiv PyOpenGL Qt PySide
+      projectsString: --projects PySide
       intermediateArtifactOutputSuffix: partOne
 
   buildPartTwo:
