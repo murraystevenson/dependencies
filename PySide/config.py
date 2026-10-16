@@ -62,6 +62,8 @@
 
 	"platform:windows" : {
 
+		"workingDir" : "p",    # Shorten overall paths to avoid Windows command character limit
+
 		"manifest" : [
 
 			"include/PySide2",
@@ -81,7 +83,6 @@
 		},
 
 		"commands" : [
-			"xcopy /s /e /h /y /i %ROOT_DIR%\\PySide\\working\\pyside-setup-opensource-src-6.8.4 %ROOT_DIR%\\PySide\\working\\p",	# Shorten overall paths to avoid Windows command character limit
 			"cd ..\\p && python setup.py install"
 				" --ignore-git"
 				" --openssl={buildDir}\\bin"
