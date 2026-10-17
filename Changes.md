@@ -11,9 +11,9 @@
 - LLVM : Updated to version 20.1.8.
 - OpenShadingLanguage : Updated to version 1.14.11.0.
 - OpenSubdiv : Updated to version 3.7.0.
-- PySide : Updated to version 6.8.4.
+- PySide : Updated to version 6.8.5.
 - Python : Updated to version 3.13.16.
-- Qt : Updated to version 6.8.4.
+- Qt : Updated to version 6.8.5.
 - TBB : Updated to version 2022.3.0.
 - ZLib : Updated to version 1.3.1.
 
