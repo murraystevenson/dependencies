@@ -29,6 +29,9 @@
 			" -DLLVM_ENABLE_ZSTD=OFF"
 			" -DLLVM_INCLUDE_BENCHMARKS=OFF"
 			" -DLLVM_INCLUDE_TESTS=OFF"
+			" -DLLVM_INCLUDE_UTILS=OFF"
+			" -DCLANG_ENABLE_STATIC_ANALYZER=OFF"
+			" -DCLANG_ENABLE_ARCMT=OFF"
 			" -DLLVM_TARGETS_TO_BUILD={buildTargets}"
 			" ..",
 		"cd build && make install -j {jobs}"
