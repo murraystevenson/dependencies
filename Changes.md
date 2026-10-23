@@ -11,6 +11,7 @@
 - LibPNG : Updated to version 1.6.59.
 - LLVM : Updated to version 20.1.8.
 - NumPy : Added version 2.3.5.
+- OpenEXR : Updated to version 3.4.16.
 - OpenShadingLanguage : Updated to version 1.14.11.0.
 - OpenSubdiv : Updated to version 3.7.0.
 - PySide : Updated to version 6.8.5.
