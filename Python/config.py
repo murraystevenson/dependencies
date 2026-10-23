@@ -123,7 +123,7 @@
 			# directory for downstream projects that need to install their Python modules.
 			# If we just do `Lib/*` then the packager will sweep up everything in the `lib`
 			# folder at the end of the entire dependencies build, not at the time Python is built.
-			# We can glob for the top-level modules. But package directories must be listed explicitly. 
+			# We can glob for the top-level modules. But package directories must be listed explicitly.
 			# So for now to come up with this list, do a build of just Python, and then a simple
 			# Python script or similar to get a list of everything in the `lib` folder.
 			"Lib/*.py",

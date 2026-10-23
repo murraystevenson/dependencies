@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/AcademySoftwareFoundation/Imath/archive/refs/tags/v3.1.12.tar.gz"
+		"https://github.com/AcademySoftwareFoundation/Imath/archive/refs/tags/v3.2.3.tar.gz"
 
 	],
 
@@ -10,7 +10,7 @@
 
 	"license" : "LICENSE.md",
 
-	"dependencies" : [ "Python", "Boost" ],
+	"dependencies" : [ "Python", "NumPy", "Boost" ],
 
 	"environment" : {
 
@@ -79,7 +79,7 @@
 				" -D Python3_ROOT_DIR={buildDir}"
 				" -D Python_NO_SYSTEM_PATHS=TRUE"
 				" -D Python3_FIND_STRATEGY=LOCATION"
-				" -D CMAKE_CXX_FLAGS=\"-DBOOST_ALL_NO_LIB -DHAVE_SNPRINTF -Zc:inline\""
+				" -D CMAKE_CXX_FLAGS=\"-DBOOST_ALL_NO_LIB -DHAVE_SNPRINTF -Zc:inline /EHsc\""
 				" -D PYIMATH_OVERRIDE_PYTHON_INSTALL_DIR={buildDir}/python"
 				" ..",
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install",
