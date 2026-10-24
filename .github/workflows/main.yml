@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - '*_maintenance'
+      - 'platform26_part1'
   pull_request:
     branches:
       - '*'
