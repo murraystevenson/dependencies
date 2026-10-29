@@ -77,7 +77,8 @@ jobs:
         brew install ninja
         brew install gpatch
         echo "/opt/homebrew/opt/gpatch/libexec/gnubin" >> $GITHUB_PATH
-        brew install pkgconf
+        brew install openssl@3 pkgconf
+        brew link openssl@3
         brew install bison
         # Make sure bison is discoverable.
         echo BISON_ROOT=/opt/homebrew/opt/bison >> $GITHUB_ENV
