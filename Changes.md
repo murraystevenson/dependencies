@@ -10,6 +10,7 @@
 - LibFFI : Updated to version 3.8.0.
 - LibPNG : Updated to version 1.6.59.
 - LLVM : Updated to version 20.1.8.
+- MarkupSafe : Updated to version 3.0.4.
 - OpenEXR : Updated to version 3.4.16.
 - OpenShadingLanguage : Updated to version 1.14.11.0.
 - OpenSubdiv : Updated to version 3.7.0.
