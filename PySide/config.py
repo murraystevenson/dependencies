@@ -15,14 +15,14 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"PYTHONPATH" : "{buildDir}/python",
 
 	},
 
 	"commands" : [
 
-		"python setup.py --parallel {jobs} --qtpaths={buildDir}/bin/qtpaths6 install",
+		"python setup.py --parallel {jobs} --qtpaths={buildDir}/bin/qtpaths6{executableExtension} install {extraArgs}",
 
 	],
 
@@ -50,6 +50,25 @@
 			( "{buildDir}/bin/pyside6-uic", "../lib/Python.framework/Versions/Current/bin/pyside6-uic" ),
 
 		]
+
+	},
+
+	"platform:windows" : {
+
+		# Shorten overall paths to avoid the Windows command length limit.
+		"workingDir" : "p",
+
+		"environment" : {
+
+			"LLVM_INSTALL_DIR" : "{buildDir}",
+
+		},
+
+		"variables" : {
+
+			"extraArgs" : "--openssl={buildDir}/bin",
+
+		},
 
 	},
 
