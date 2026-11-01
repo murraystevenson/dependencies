@@ -26,17 +26,54 @@
 
 	"commands" : [
 
-		"./bootstrap.sh --prefix={buildDir} --with-python={buildDir}/bin/python --with-python-root={buildDir} --without-libraries=log --without-icu",
-		"./b2 -d+2 -j {jobs} --disable-icu cxxflags='-std=c++{c++Standard}' cxxstd={c++Standard} variant=release link=shared threading=multi install",
+		"{bootstrap}",
+		"{b2} -d+2 -j {jobs} --prefix={buildDir} --without-log --disable-icu cxxstd={c++Standard} variant=release link=shared threading=multi {extraArgs} install",
 
 	],
+
+	"variables" : {
+
+		"bootstrap" : "./bootstrap.sh --with-python={buildDir}/bin/python --with-python-root={buildDir} --without-icu",
+		"b2" : "./b2",
+
+	},
 
 	"manifest" : [
 
 		"include/boost",
-		"lib/libboost_*{sharedLibraryExtension}*",
-		"lib/libboost_test_exec_monitor.a",
+		"{sharedLibraryDir}/{libraryPrefix}boost_*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}boost_*.lib",
+		# Note : this has the "lib" prefix on all platforms.
+		"lib/libboost_test_exec_monitor{staticLibraryExtension}",
 
 	],
+
+	"platform:windows" : {
+
+		"extraDependencies" : [ "ZLib" ],
+
+		"environment" : {
+
+			"PATH" : "{buildDir}/bin;%PATH%",
+
+		},
+
+		"variables" : {
+
+			# `bootstrap.bat` accepts only a toolset, so we configure everything
+			# else via `b2`, and tell it where to find ZLib with a `user-config.jam`.
+			"bootstrap" : "bootstrap.bat && echo using zlib : : ^<include^>\"{buildDir}/include\" ^<search^>\"{buildDir}/lib\" ; > user-config.jam",
+			"b2" : "b2",
+			"extraArgs" : "--layout=system --toolset=msvc architecture=x86 address-model=64 --user-config=user-config.jam",
+
+		},
+
+		"postMovePaths" : {
+
+			"{buildDir}/lib/*.dll" : "{buildDir}/bin",
+
+		},
+
+	},
 
 }
