@@ -16,7 +16,7 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib:$LD_LIBRARY_PATH",
 
 	},
@@ -39,26 +39,45 @@
 			" -D OCIO_BUILD_TESTS=OFF"
 			" -D OCIO_BUILD_GPU_TESTS=OFF"
 			" -D OCIO_PYTHON_VERSION={pythonVersion}"
+			" {extraArgs}"
 			" ..",
 
-		"cd build && make clean && make VERBOSE=1 -j {jobs} && make install",
-
-		"mkdir -p {buildDir}/python",
-		"mv {buildDir}/lib*/python*/site-packages/PyOpenColorIO* {buildDir}/python",
-
-		"mkdir -p {buildDir}/openColorIO",
-		"cp ../studio-config-v3.0.0_aces-v2.0_ocio-v2.4.ocio {buildDir}/openColorIO",
-		"cp ../cg-config-v3.0.0_aces-v2.0_ocio-v2.4.ocio {buildDir}/openColorIO",
+		"cd build && cmake --build . --clean-first --target install --parallel {jobs} --verbose",
 
 	],
+
+	"postMovePaths" : {
+
+		"{buildDir}/lib*/python*/site-packages/PyOpenColorIO*" : "{buildDir}/python",
+		"../studio-config-v3.0.0_aces-v2.0_ocio-v2.4.ocio" : "{buildDir}/openColorIO",
+		"../cg-config-v3.0.0_aces-v2.0_ocio-v2.4.ocio" : "{buildDir}/openColorIO",
+
+	},
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
 
 	"manifest" : [
 
 		"include/OpenColorIO",
-		"lib/libOpenColorIO*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}OpenColorIO*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}OpenColorIO*.lib",
 		"openColorIO",
 		"python/PyOpenColorIO*",
 
 	],
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"extraArgs" : "-Wno-dev",
+
+		},
+
+	},
 
 }
