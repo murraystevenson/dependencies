@@ -124,6 +124,15 @@ def __patches( project ) :
 	return sorted( glob.glob( "{}/patches/*.patch".format( project ) ) ) + \
 		sorted( glob.glob( "{}/patches/{}/*.patch".format( project, __platform() ) ) )
 
+def __removeTree( path ) :
+
+	def makeWritableAndRetry( function, path, excInfo ) :
+		# Windows refuses to delete read-only files.
+		os.chmod( path, stat.S_IWRITE )
+		function( path )
+
+	shutil.rmtree( path, onerror = makeWritableAndRetry )
+
 def __decompress( archive, cleanup = False ) :
 
 	if os.path.splitext( archive )[1] == ".zip" :
@@ -339,7 +348,7 @@ def __buildProject( project, config, buildDir, cleanup ) :
 
 	workingDir = project + "/working"
 	if os.path.exists( workingDir ) :
-		shutil.rmtree( workingDir )
+		__removeTree( workingDir )
 	os.makedirs( workingDir )
 	os.chdir( workingDir )
 	fullWorkingDir = os.getcwd()
@@ -405,7 +414,7 @@ def __buildProject( project, config, buildDir, cleanup ) :
 
 	if cleanup :
 		os.chdir( buildRootDirectory )
-		shutil.rmtree( fullWorkingDir )
+		__removeTree( fullWorkingDir )
 
 def __checkConfigs( projects, configs ) :
 
