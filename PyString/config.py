@@ -18,15 +18,22 @@
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" -D BUILD_SHARED_LIBS=ON"
+			" -D CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON"
 			" ..",
-		"cd build && make -j {jobs} && make install",
-		"mkdir -p {buildDir}/include/pystring && cp pystring.h {buildDir}/include/pystring",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
 
+	"postMovePaths" : {
+
+		"pystring.h" : "{buildDir}/include/pystring",
+
+	},
+
 	"manifest" : [
 
-		"lib/libpystring*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}pystring*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}pystring*.lib",
 
 	],
 
