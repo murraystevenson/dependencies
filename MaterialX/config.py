@@ -14,7 +14,7 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib:$LD_LIBRARY_PATH",
 
 	},
@@ -25,6 +25,7 @@
 		"cd build && cmake"
 			" -D CMAKE_CXX_STANDARD={c++Standard}"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
+			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" -D MATERIALX_BUILD_SHARED_LIBS=ON"
 			" -D MATERIALX_BUILD_PYTHON=ON"
 			" -D MATERIALX_BUILD_OIIO=ON"
@@ -34,14 +35,15 @@
 			" -D MATERIALX_PYTHON_EXECUTABLE={buildDir}/bin/python"
 			" ..",
 
-		"cd build && make clean && make VERBOSE=1 -j {jobs} && make install",
+		"cd build && cmake --build . --clean-first --target install --parallel {jobs} --verbose",
 
 	],
 
 	"manifest" : [
 
 		"include/MaterialX*",
-		"lib/libMaterialX*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}MaterialX*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}MaterialX*.lib",
 		"materialX",
 		"python/MaterialX",
 

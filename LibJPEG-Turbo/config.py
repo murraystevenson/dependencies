@@ -17,7 +17,7 @@
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
 
@@ -28,7 +28,9 @@
 		"include/jmorecfg.h",
 		"include/jpeglib.h",
 
-		"lib/libjpeg*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}jpeg*{sharedLibraryExtension}*",
+		"bin/turbojpeg.dll",
+		"lib/jpeg.lib",
 
 	],
 

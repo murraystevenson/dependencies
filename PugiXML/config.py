@@ -15,10 +15,11 @@
 		"mkdir gafferBuild",
 		"cd gafferBuild &&"
 			" cmake"
+			" -D CMAKE_CXX_STANDARD={c++Standard}"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" ..",
-		"cd gafferBuild && make install -j {jobs} VERBOSE=1",
+		"cd gafferBuild && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
 

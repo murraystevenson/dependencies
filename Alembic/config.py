@@ -23,27 +23,44 @@
 			" -D USE_ARNOLD=FALSE"
 			" -D USE_PRMAN=FALSE"
 			" -D USE_MAYA=FALSE"
+			" {extraArgs}"
 			" ."
 		,
 
-		"make VERBOSE=1 -j {jobs}",
-		"make install",
+		"cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
 
 	"manifest" : [
 
-		"bin/abcconvert",
-		"bin/abcecho",
-		"bin/abcechobounds",
-		"bin/abcls",
-		"bin/abcstitcher",
-		"bin/abctree",
+		"bin/abcconvert{executableExtension}",
+		"bin/abcecho{executableExtension}",
+		"bin/abcechobounds{executableExtension}",
+		"bin/abcls{executableExtension}",
+		"bin/abcstitcher{executableExtension}",
+		"bin/abctree{executableExtension}",
 
 		"include/Alembic",
 
-		"lib/libAlembic*",
+		"{sharedLibraryDir}/{libraryPrefix}Alembic*",
+		"lib/{libraryPrefix}Alembic*.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"extraArgs" : " -D USE_STATIC_HDF5=ON",
+
+		},
+
+		"postMovePaths" : {
+
+			"{buildDir}/lib/Alembic.dll" : "{buildDir}/bin",
+
+		},
+
+	},
 
 }
