@@ -28,8 +28,24 @@
 	"manifest" : [
 
 		"include/freetype2",
-		"lib/libfreetype*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}freetype*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}freetype*.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"mkdir gafferBuild",
+			"cd gafferBuild && cmake"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D CMAKE_DISABLE_FIND_PACKAGE_PNG=TRUE"
+				" ..",
+			"cd gafferBuild && cmake --build . --target install --parallel {jobs}",
+
+		],
+
+	},
 
 }

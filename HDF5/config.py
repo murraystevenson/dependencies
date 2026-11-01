@@ -21,8 +21,32 @@
 
 	"manifest" : [
 
-		"lib/libhdf5*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}hdf5*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}hdf5*.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"mkdir build",
+			"cd build &&"
+				" cmake"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D HDF5_ENABLE_THREADSAFE=ON"
+				" -D HDF5_ENABLE_Z_LIB_SUPPORT=ON"
+				" -D ZLIB_ROOT={buildDir}"
+				" -D HDF5_BUILD_HL_LIB=OFF"
+				" -D HDF5_BUILD_CPP_LIB=OFF"
+				" -D HDF5_BUILD_TOOLS=OFF"
+				" -D HDF5_BUILD_EXAMPLES=OFF"
+				" -D BUILD_TESTING=OFF"
+				" ..",
+			"cd build && cmake --build . --target install --parallel {jobs}",
+
+		],
+
+	},
 
 }
