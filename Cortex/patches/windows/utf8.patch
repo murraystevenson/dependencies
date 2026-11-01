@@ -1,0 +1,10 @@
+--- a/SConstruct	2026-10-18 18:26:42.943356843 -0700
++++ b/SConstruct	2026-10-18 18:28:06.038363168 -0700
+@@ -953,6 +953,7 @@
+ 			"/EHsc", # catch c++ exceptions only
+ 			"/MP",  # enable multiprocessing of builds
+ 			"/std:$CXXSTD",
++			"/utf-8",
+ 		]
+ 	)
+ 
