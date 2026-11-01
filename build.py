@@ -312,9 +312,9 @@ def __buildProject( project, config, buildDir, cleanup ) :
 		if os.path.exists( archivePath ) :
 			continue
 
-		downloadCommand = "curl -L {0} > {1}".format( download, archivePath )
-		sys.stderr.write( downloadCommand + "\n" )
-		subprocess.check_call( downloadCommand, shell = True )
+		downloadCommand = [ "curl", "--location", "--retry", "10", "--connect-timeout", "15", "--output", archivePath, download ]
+		sys.stderr.write( " ".join( downloadCommand ) + "\n" )
+		subprocess.check_call( downloadCommand )
 
 	workingDir = project + "/working"
 	if os.path.exists( workingDir ) :
