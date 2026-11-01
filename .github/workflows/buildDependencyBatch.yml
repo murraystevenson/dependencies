@@ -48,6 +48,9 @@ jobs:
     - uses: actions/checkout@v4
 
     - uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1.13.0
+      with:
+        sdk: 10.0.22621.0
+        vsversion: '2022'
 
     - name: Install toolchain (Linux)
       run: |
@@ -97,6 +100,33 @@ jobs:
         brew install "local/pinned/cmake"
       shell: bash
       if: runner.os == 'macOS'
+
+    - name: Install toolchain (Windows)
+      run: |
+        # Required msys2 packages.
+        /c/msys64/usr/bin/pacman -S autoconf bison flex make nasm patch unzip wget --noconfirm
+        echo "C:/msys64/usr/bin" >> $GITHUB_PATH
+
+        # JOM, for OpenShadingLanguage.
+        /c/msys64/usr/bin/wget http://download.qt.io/official_releases/jom/jom.zip
+        /c/msys64/usr/bin/unzip jom.zip -d /c/jom
+        echo "C:/jom" >> $GITHUB_PATH
+
+        # Doxygen
+        /c/msys64/usr/bin/wget https://www.doxygen.nl/files/doxygen-1.14.0-setup.exe
+        ./doxygen-1.14.0-setup.exe //VERYSILENT //DIR="C:\doxygen"
+        echo "C:/doxygen/bin" >> $GITHUB_PATH
+
+        # CUDA SDK, for Cycles.
+        /c/msys64/usr/bin/wget https://developer.download.nvidia.com/compute/cuda/12.8.1/network_installers/cuda_12.8.1_windows_network.exe
+        ./cuda_12.8.1_windows_network.exe -s -n
+        echo CUDA_TOOLKIT_ROOT_DIR=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.8 >> $GITHUB_ENV
+
+        pip install --upgrade setuptools==81.0.0
+        pip install scons==4.6.0
+
+      shell: bash
+      if: runner.os == 'Windows'
 
     - name: 'Install Python Modules'
       run: |
