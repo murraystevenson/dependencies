@@ -482,10 +482,30 @@ def __buildPackage( projects, configs, buildDir, package ) :
 	with open( os.path.join( licenseDir, "manifest.json" ), "w" ) as file :
 		json.dump( projectManifest, file, indent = 4 )
 
-	rootName = os.path.basename( package ).replace( ".tar.gz", "" )
-	with tarfile.open( package, "w:gz", compresslevel = 6 ) as file :
+	if package.endswith( ".zip" ) :
+
+		# Unlike `tarfile`, `zipfile` doesn't add directories recursively,
+		# so we expand them ourselves.
+		zipFiles = set()
 		for m in files :
-			file.add( os.path.join( buildDir, m ), arcname = os.path.join( rootName, m ) )
+			path = os.path.join( buildDir, m )
+			if os.path.isdir( path ) :
+				for root, dirs, fileNames in os.walk( path ) :
+					zipFiles.update( os.path.relpath( os.path.join( root, f ), buildDir ) for f in fileNames )
+			else :
+				zipFiles.add( m )
+
+		rootName = os.path.basename( package ).replace( ".zip", "" )
+		with zipfile.ZipFile( package, "w", zipfile.ZIP_DEFLATED ) as file :
+			for m in sorted( zipFiles ) :
+				file.write( os.path.join( buildDir, m ), arcname = os.path.join( rootName, m ) )
+
+	else :
+
+		rootName = os.path.basename( package ).replace( ".tar.gz", "" )
+		with tarfile.open( package, "w:gz", compresslevel = 6 ) as file :
+			for m in files :
+				file.add( os.path.join( buildDir, m ), arcname = os.path.join( rootName, m ) )
 
 parser = argparse.ArgumentParser()
 
@@ -505,8 +525,8 @@ parser.add_argument(
 
 parser.add_argument(
 	"--package",
-	default = "gafferDependencies-{version}{variants}-{platform}.tar.gz",
-	help = "The filename of the tarball package to create.",
+	default = "gafferDependencies-{version}{variants}-{platform}" + ( ".zip" if __platform() == "windows" else ".tar.gz" ),
+	help = "The filename of the package to create. Packages are created as zip files if the filename ends with `.zip`, and as tarballs otherwise.",
 )
 
 parser.add_argument(
