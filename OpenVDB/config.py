@@ -37,26 +37,55 @@
 			" -D Python_FIND_VERSION={pythonVersion}"
 			" -D Python_FIND_VERSION_MAJOR={pythonMajorVersion}"
 			" -D BOOST_ROOT={buildDir}"
+			" {extraArgs}"
 			" .."
 		,
 
-		"cd build && make VERBOSE=1 -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs} --verbose",
+
+	],
+
+	"postMovePaths" : {
 
 		# Cortex builds made with OpenVDB 12 and above require nanobind-static.
 		# If/when more projects require Nanobind, we may want to consider building
 		# it independently.
-		"cp build/openvdb/openvdb/python/libnanobind-static.a {buildDir}/lib",
+		"build/openvdb/openvdb/python/{libraryPrefix}nanobind-static{staticLibraryExtension}" : "{buildDir}/lib",
 
-	],
+	},
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
 
 	"manifest" : [
 
 		"include/openvdb",
 		"include/nanovdb",
-		"lib/libopenvdb*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}openvdb*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}openvdb*.lib",
 		"python/openvdb*",
-		"lib/libnanobind-static.a",
+		"lib/{libraryPrefix}nanobind-static{staticLibraryExtension}",
 
 	],
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"extraArgs" : "-Wno-dev",
+
+		},
+
+		"postMovePaths" : {
+
+			"{buildDir}/lib/python{pythonVersion}/site-packages/openvdb*.pyd" : "{buildDir}/python",
+			"{buildDir}/lib/python{pythonVersion}/site-packages/*.lib" : "{buildDir}/lib",
+
+		},
+
+	},
 
 }
