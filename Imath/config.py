@@ -14,7 +14,7 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 
 	},
@@ -33,21 +33,41 @@
 			" -D Python3_FIND_STRATEGY=LOCATION"
 			" -D PYTHON_INSTALL_DIR=python"
 			" -D BUILD_TESTING=OFF"
+			" {extraArgs}"
 			" ."
 		,
 
-		"make VERBOSE=1 -j {jobs}",
-		"make install",
+		"cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
 
 	"manifest" : [
 
 		"include/Imath",
-		"lib/libImath*{sharedLibraryExtension}*",
-		"lib/libPyImath*{sharedLibraryExtension}*",
-		"python/imath.so",
+		"{sharedLibraryDir}/{libraryPrefix}Imath*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}Imath*.lib",
+		"{sharedLibraryDir}/{libraryPrefix}PyImath*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}PyImath*.lib",
+		"python/imath{pythonModuleExtension}",
 
 	],
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"extraArgs" :
+				" -D IMATH_LIB_SUFFIX="
+			,
+
+		},
+
+	},
 
 }

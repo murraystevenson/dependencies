@@ -19,15 +19,46 @@
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" -D CMAKE_PREFIX_PATH={buildDir}"
-			" -D PNG_SHARED=OFF"
+			" -D PNG_SHARED={pngShared}"
 			" -D PNG_STATIC=ON"
 			" -D PNG_TESTS=OFF"
 			" -D PNG_TOOLS=OFF"
 			" -D PNG_FRAMEWORK=OFF"
 			" -D CMAKE_POSITION_INDEPENDENT_CODE=ON"
+			" {extraArgs}"
 			" ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
+
+	"variables" : {
+
+		"pngShared" : "OFF",
+		"extraArgs" : "",
+
+	},
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"pngShared" : "ON",
+			"extraArgs" :
+				" -D ZLIB_INCLUDE_DIR={buildDir}\\include"
+				" -D ZLIB_LIBRARY={buildDir}\\lib\\zlib.lib"
+			,
+
+		},
+
+		"manifest" : [
+
+			"include/png*",
+			"include/libpng*",
+			"{sharedLibraryDir}/libpng*{sharedLibraryExtension}*",
+			"lib/libpng*.lib",
+
+		],
+
+	},
 
 }

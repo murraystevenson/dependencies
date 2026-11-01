@@ -14,18 +14,35 @@
 
 	"commands" : [
 
-		"cmake -DCMAKE_INSTALL_PREFIX={buildDir} -DPREFER_EXTERNAL_ZLIB=ON -DCMAKE_PREFIX_PATH={buildDir} .",
+		"cmake -DCMAKE_INSTALL_PREFIX={buildDir} -DPREFER_EXTERNAL_ZLIB=ON -DCMAKE_PREFIX_PATH={buildDir} {extraArgs} .",
 		# Note : Blosc does not declare its build dependencies
 		# correctly, so we cannot do a parallel build with `-j`.
-		"make install VERBOSE=1",
+		"cmake --build . --target install --verbose",
 
 	],
 
 	"manifest" : [
 
 		"include/blosc*.h",
-		"lib/libblosc*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}blosc*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}blosc*.lib",
 
 	],
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"extraArgs" : "-DBUILD_TESTS=OFF -DBUILD_BENCHMARKS=OFF -DBUILD_STATIC=OFF",
+
+		},
+
+	},
 
 }

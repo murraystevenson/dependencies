@@ -14,7 +14,7 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 
 	},
@@ -27,22 +27,47 @@
 			# puts the libraries in `lib64`. Coax them back.
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" -D CMAKE_PREFIX_PATH={buildDir}"
+			" {extraArgs}"
 			" ."
 		,
 
-		"make VERBOSE=1 -j {jobs}",
-		"make install",
+		"cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
 
 	"manifest" : [
 
-		"bin/exrheader",
+		"bin/exrheader{executableExtension}",
 		"include/OpenEXR",
-		"lib/libIex*{sharedLibraryExtension}*",
-		"lib/libIlmThread*{sharedLibraryExtension}*",
-		"lib/libOpenEXR*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}Iex*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}Iex*.lib",
+		"{sharedLibraryDir}/{libraryPrefix}IlmThread*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}IlmThread*.lib",
+		"{sharedLibraryDir}/{libraryPrefix}OpenEXR*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}OpenEXR*.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"extraArgs" :
+				# Windows has no unversioned symlinks, so we build
+				# unversioned libraries instead.
+				" -D OPENEXR_LIB_SUFFIX="
+				" -D Python3_ROOT_DIR={buildDir}"
+				" -D Python3_FIND_STRATEGY=LOCATION"
+			,
+
+		},
+
+	},
 
 }

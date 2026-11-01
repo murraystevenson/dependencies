@@ -16,10 +16,17 @@
 			" cmake"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
+			" {extraArgs}"
 			" ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
 
 	"manifest" : [
 
@@ -28,8 +35,22 @@
 		"include/jmorecfg.h",
 		"include/jpeglib.h",
 
-		"lib/libjpeg*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/libjpeg*{sharedLibraryExtension}*",
+		# Windows naming.
+		"bin/jpeg62.dll",
+		"bin/turbojpeg.dll",
+		"lib/jpeg.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"extraArgs" : "-D WITH_SIMD=OFF",
+
+		},
+
+	},
 
 }

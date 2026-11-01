@@ -17,9 +17,32 @@
 			" cmake"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
+			" {extraArgs}"
 			" ..",
-		"cd gafferBuild && make install -j {jobs} VERBOSE=1",
+		"cd gafferBuild && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
+
+	"platform:windows" : {
+
+		"environment" : {
+
+			"PATH" : "{buildDir}\\bin;%PATH%"
+
+		},
+
+		"variables" : {
+
+			"extraArgs" : "-D CMAKE_CXX_STANDARD={c++Standard}",
+
+		},
+
+	},
 
 }
