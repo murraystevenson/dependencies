@@ -35,17 +35,16 @@
 
 		"args" :
 			" -j {jobs}"
-			" CXX=`which g++`"
 			" CXXSTD=c++{c++Standard}"
 			" INSTALL_PREFIX={buildDir}"
 			" INSTALL_DOC_DIR={buildDir}/doc/cortex"
 			" INSTALL_PYTHON_DIR={buildDir}/python"
-			" INSTALL_IECORE_OPS=''"
+			" INSTALL_IECORE_OPS="
 			" PYTHON_CONFIG={buildDir}/bin/python{pythonMajorVersion}-config"
-			" PYTHON={buildDir}/bin/python"
-			" BOOST_INCLUDE_PATH={buildDir}/include/boost"
+			" PYTHON={buildDir}/bin/python{executableExtension}"
+			" BOOST_INCLUDE_PATH={buildDir}/include"
 			" LIBPATH={buildDir}/lib"
-			" BOOST_LIB_SUFFIX=''"
+			" BOOST_LIB_SUFFIX="
 			" OPENEXR_INCLUDE_PATH={buildDir}/include"
 			" ILMBASE_INCLUDE_PATH={buildDir}/include/Imath"
 			" VDB_INCLUDE_PATH={buildDir}/include"
@@ -53,24 +52,31 @@
 			" OIIO_INCLUDE_PATH={buildDir}/include"
 			" OSL_INCLUDE_PATH={buildDir}/include"
 			" BLOSC_INCLUDE_PATH={buildDir}/include"
+			" ALEMBIC_INCLUDE_PATH={buildDir}/include"
+			" NANOBIND_INCLUDE_PATH={buildDir}/include"
 			" FREETYPE_INCLUDE_PATH={buildDir}/include/freetype2"
 			" WITH_GL=1"
-			" GLEW_INCLUDE_PATH={buildDir}/include/GL"
+			" GLEW_INCLUDE_PATH={buildDir}/include"
 			" NUKE_ROOT="
 			" USD_LIB_PREFIX=usd_"
-			" ENV_VARS_TO_IMPORT='LD_LIBRARY_PATH TERM MACOSX_DEPLOYMENT_TARGET'"
-			" OPTIONS=''"
+			" OPTIONS="
 			" {extraArgs}"
+			" {pythonArgs}"
 			" SAVE_OPTIONS=gaffer.options",
 
-		"extraArgs" : "",
+		"extraArgs" :
+			" CXX=`which g++`"
+			" ENV_VARS_TO_IMPORT='LD_LIBRARY_PATH TERM MACOSX_DEPLOYMENT_TARGET'"
+		,
+		"pythonArgs" : "",
 
 	},
 
 	"manifest" : [
 
 		"include/IECore*",
-		"lib/libIECore*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}IECore*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}IECore*.lib",
 		"python/IECore*",
 		"glsl/IECoreGL",
 		"glsl/*.frag",
@@ -84,13 +90,36 @@
 		"variables" : {
 
 			# On Mac, `python3-config --ldflags` is broken, so we specify the flags explicitly.
-			"extraArgs" :
-				" PYTHON_LIB_PATH={buildDir}/lib/Python.framework/Versions/{pythonVersion}/lib"
+			"pythonArgs" :
+				" PYTHON_LIB_PATH={pythonLibDir}"
 				" PYTHON_LINK_FLAGS=-lpython{pythonVersion}"
-
 		},
 
 	},
 
+	"platform:windows" : {
+
+		"environment" : {
+
+			"PATH" : "{buildDir}\\bin;%PATH%",
+
+		},
+
+		"variables" : {
+
+			"extraArgs" :
+				" USD_INCLUDE_PATH={buildDir}/include"
+				" GLEW_LIB_SUFFIX=32"
+			,
+			# Windows has no `python-config`, so we specify the flags explicitly.
+			"pythonArgs" :
+				" PYTHON_INCLUDE_PATH={pythonIncludeDir}"
+				" PYTHON_LIB_PATH={pythonLibDir}"
+				" PYTHON_LINK_FLAGS="
+			,
+
+		},
+
+	},
 
 }
