@@ -18,6 +18,39 @@
 
 	},
 
+	"platform:windows" : {
+
+		"extraDependencies" : [ "Optix" ],
+
+		"environment" : {
+
+			"PATH" : "{buildDir}\\bin;%PATH%",
+
+		},
+
+		"variables" : {
+
+			"extraArgs" :
+				" -D OPTIX_ROOT_DIR={buildDir}"
+				" -D CUDA_TOOLKIT_ROOT_DIR=\"%CUDA_TOOLKIT_ROOT_DIR%\""
+				" -D TBB_ROOT_DIR={buildDir}"
+				" -D OPENVDB_ROOT_DIR={buildDir}"
+				" -D NANOVDB_INCLUDE_DIR={buildDir}/include"
+				" -D JPEG_ROOT_DIR={buildDir}"
+				" -D PLATFORM_BUNDLED_LIBRARY_DIRS={buildDir}\\bin;{buildDir}\\lib;%PATH%"
+				" -D CMAKE_EXE_LINKER_FLAGS=\"/LIBPATH:{buildDir}/lib\""
+			,
+
+		},
+
+		"postMovePaths" : {
+
+			"build/bin/cycles.*" : "{buildDir}/cycles/bin",
+
+		},
+
+	},
+
 	"environment" : {
 
 		# Needed because the build process runs oslc.
@@ -43,17 +76,26 @@
 			" -D WITH_CYCLES_HYDRA_RENDER_DELEGATE=OFF"
 			" -D CMAKE_POSITION_INDEPENDENT_CODE=ON"
 			" -D WITH_CYCLES_USD=OFF"
+			" {extraArgs}"
 			" ..",
-		"cd build && make install -j {jobs} VERBOSE=1",
-
-		"mkdir -p {buildDir}/cycles/include",
-		"cd src && find . -name '*.h' | cpio -pdm {buildDir}/cycles/include",
-		"cp -r third_party/atomic/* {buildDir}/cycles/include",
-		"mkdir -p {buildDir}/cycles/bin",
-		"mv {buildDir}/cycles/cycles {buildDir}/cycles/bin/cycles",
-		"cp -r build/lib {buildDir}/cycles",
+		"cd build && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
+
+	"postMovePaths" : {
+
+		"src/**/*.h" : "{buildDir}/cycles/include",
+		"third_party/atomic/*" : "{buildDir}/cycles/include",
+		"{buildDir}/cycles/cycles{executableExtension}" : "{buildDir}/cycles/bin",
+		"build/lib" : "{buildDir}/cycles",
+
+	},
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
 
 	"manifest" : [
 
