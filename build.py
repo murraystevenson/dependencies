@@ -246,6 +246,12 @@ def __loadConfigs( variables, variants ) :
 			config.setdefault( "dependencies", [] ).extend( config["extraDependencies"] )
 		if sys.platform == "darwin" :
 			config.setdefault( "environment", {} ).setdefault( "MACOSX_DEPLOYMENT_TARGET", "{macosDeploymentTarget}" )
+		elif sys.platform == "win32" :
+			environment = config.setdefault( "environment", {} )
+			environment.setdefault( "CMAKE_GENERATOR", "Ninja" )
+			environment.setdefault( "CMAKE_BUILD_TYPE", "Release" )
+			environment.setdefault( "CC", "cl" )
+			environment.setdefault( "CXX", "cl" )
 
 		if config.get( "enabled", True ) :
 			configs[project] = config
