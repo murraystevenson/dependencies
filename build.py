@@ -72,9 +72,16 @@ addition to the standard global variables :
 ### Platform overrides
 
 Configs may specify platform-specific overrides in a dictionary named
-"platform:macos" or "platform:linux". Where a config setting is a dictionary,
-overrides are merged in via `dict.update()`, otherwise they completely
-replace the original value.
+"platform:macos", "platform:linux" or "platform:windows". Where a config
+setting is a dictionary, overrides are merged in via `dict.update()`,
+otherwise they completely replace the original value.
+
+### Patches
+
+Patches named `<Project>/patches/*.patch` are applied to the source before
+building. Platform-specific patches may be placed in
+`<Project>/patches/<platform>/*.patch`, where `<platform>` is "macos",
+"linux" or "windows".
 
 ### Variants
 
@@ -98,10 +105,19 @@ def __compilerRoot() :
 	binDir = os.path.dirname( compiler )
 	return os.path.dirname( binDir )
 
+def __platform() :
+
+	return { "darwin": "macos", "win32": "windows" }.get( sys.platform, "linux" )
+
 def __projects() :
 
 	configFiles = glob.glob( "*/config.py" )
 	return sorted( [ os.path.split( f )[0] for f in configFiles ] )
+
+def __patches( project ) :
+
+	return sorted( glob.glob( "{}/patches/*.patch".format( project ) ) ) + \
+		sorted( glob.glob( "{}/patches/{}/*.patch".format( project, __platform() ) ) )
 
 def __decompress( archive, cleanup = False ) :
 
@@ -202,7 +218,7 @@ def __updateDigest( project, config ) :
 	for e in config.get( "requiredEnvironment", [] ) :
 		__appendHash( config["digest"], os.environ.get( e, "" ) )
 
-	for patch in glob.glob( "{}/patches/*.patch".format( project ) ) :
+	for patch in __patches( project ) :
 		with open( patch ) as f :
 			__appendHash( config["digest"], f.read() )
 
@@ -217,7 +233,7 @@ def __loadConfigs( variables, variants ) :
 			__applyConfigOverrides( config, "variant:{}".format( variants[project] ) )
 		for variantProject, variant in variants.items() :
 			__applyConfigOverrides( config, "variant:{}:{}".format( variantProject, variant ) )
-		__applyConfigOverrides( config, { "darwin": "platform:macos", "win32": "platform:windows" }.get( sys.platform, "platform:linux" ) )
+		__applyConfigOverrides( config, "platform:{}".format( __platform() ) )
 		if "extraDependencies" in config :
 			config.setdefault( "dependencies", [] ).extend( config["extraDependencies"] )
 		if sys.platform == "darwin" :
@@ -281,6 +297,7 @@ def __buildProject( project, config, buildDir, cleanup ) :
 	sys.stderr.write( "Building project {}\n".format( project ) )
 
 	buildRootDirectory = os.getcwd()
+	patches = [ os.path.abspath( p ) for p in __patches( project ) ]
 
 	archiveDir = project + "/archives"
 	if not os.path.exists( archiveDir ) :
@@ -321,7 +338,7 @@ def __buildProject( project, config, buildDir, cleanup ) :
 				shutil.rmtree( licenseDest )
 			shutil.copytree( config["license"], licenseDest )
 
-	for patch in glob.glob( "../../patches/*.patch" ) :
+	for patch in patches :
 		subprocess.check_call( "patch -p1 < {patch}".format( patch = patch ), shell = True )
 
 	environment = os.environ.copy()
@@ -521,7 +538,7 @@ variables = {
 	"jobs" : args.jobs,
 	"path" : os.environ["PATH"],
 	"version" : __version,
-	"platform" : { "darwin": "macos", "win32": "windows" }.get( sys.platform, "linux" ),
+	"platform" : __platform(),
 	"sharedLibraryDir" : { "win32": "bin" }.get( sys.platform, "lib" ),
 	"sharedLibraryExtension" : { "darwin": ".dylib", "win32": ".dll" }.get( sys.platform, ".so" ),
 	"staticLibraryExtension" : { "win32": ".lib" }.get( sys.platform, ".a" ),
