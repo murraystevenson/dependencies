@@ -11,11 +11,13 @@
 
 	"dependencies" : [ "Python" ],
 
-	"commands" : [
+	"commands" : [],
 
-		"cp Qt.py {buildDir}/python",
+	"postMovePaths" : {
 
-	],
+		"Qt.py" : "{buildDir}/python",
+
+	},
 
 	"manifest" : [
 

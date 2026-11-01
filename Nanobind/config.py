@@ -22,9 +22,13 @@
 
 		"cmake --install .",
 
-		"cp -r include/nanobind {buildDir}/include",
-
 	],
+
+	"postMovePaths" : {
+
+		"include/nanobind" : "{buildDir}/include",
+
+	},
 
 	"manifest" : [
 
