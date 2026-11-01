@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import pathlib
+import stat
 import operator
 import multiprocessing
 import subprocess
@@ -125,7 +126,10 @@ def __decompress( archive, cleanup = False ) :
 		with zipfile.ZipFile( archive ) as f :
 			for info in f.infolist() :
 				extracted = f.extract( info.filename )
-				os.chmod( extracted, info.external_attr >> 16 )
+				# Always make files writable, so that we can delete them during
+				# cleanup. Archives created on Windows store no permissions at all,
+				# which would otherwise leave files read-only.
+				os.chmod( extracted, ( info.external_attr >> 16 ) | stat.S_IWUSR )
 			files = f.namelist()
 	elif archive.endswith( ".tar.bz2" ) or archive.endswith( "tar.gz" ) or archive.endswith( ".tgz" ) or archive.endswith( ".tar.xz" ) :
 		with tarfile.open( archive, "r:*" ) as f :
