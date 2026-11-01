@@ -19,8 +19,26 @@
 	"manifest" : [
 
 		"include/GL",
-		"lib/libGLEW*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}GLEW*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}GLEW*.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			# The source archive already contains a `build` directory.
+			"if not exist \"build\" mkdir build",
+			"cd build &&"
+				" cmake"
+				" -Wno-dev"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" ..\\build\\cmake",
+			"cd build && cmake --build . --target install --parallel {jobs}",
+
+		],
+
+	},
 
 }

@@ -33,8 +33,35 @@
 	"manifest" : [
 
 		"include/tiff*",
-		"lib/libtiff*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}tiff*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}tiff.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"extraDependencies" : [ "ZLib" ],
+
+		"commands" : [
+
+			"mkdir gafferBuild",
+			"cd gafferBuild &&"
+				" cmake"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D ZLIB_INCLUDE_DIR={buildDir}\\include"
+				" -D ZLIB_LIBRARY={buildDir}\\lib\\zlib.lib"
+				" ..",
+			"cd gafferBuild && cmake --build . --target install --parallel {jobs}",
+
+		],
+
+		"postMovePaths" : {
+
+			"libtiff/*.h" : "{buildDir}/include",
+			"libtiff/libtiff.lib" : "{buildDir}/lib",
+
+		},
+
+	},
 
 }

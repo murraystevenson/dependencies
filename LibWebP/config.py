@@ -20,10 +20,29 @@
 	"manifest" : [
 
 		"include/webp",
-		"lib/libwebp*{sharedLibraryExtension}*",
-		"lib/libwebpdemux*{sharedLibraryExtension}*",
-		"lib/libsharpyuv*{sharedLibraryExtension}*",
+		# Note : LibWebP uses the "lib" prefix on Windows too.
+		"{sharedLibraryDir}/libwebp*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/libwebpdemux*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/libsharpyuv*{sharedLibraryExtension}*",
+		"lib/libwebp*.lib",
+		"lib/libsharpyuv*.lib",
 
 	],
+
+	"platform:windows" : {
+
+		"commands" : [
+
+			"mkdir gafferBuild",
+			"cd gafferBuild &&"
+				" cmake"
+				" -D CMAKE_INSTALL_PREFIX={buildDir}"
+				" -D BUILD_SHARED_LIBS=1"
+				" ..",
+			"cd gafferBuild && cmake --build . --target install --parallel {jobs}",
+
+		],
+
+	},
 
 }
