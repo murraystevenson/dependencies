@@ -1,0 +1,8 @@
+--- a/sources/pyside6/plugins/designer/CMakeLists.txt	2026-10-17 09:50:10.418968119 -0700
++++ b/sources/pyside6/plugins/designer/CMakeLists.txt	2026-10-17 09:50:46.863732683 -0700
+@@ -56,4 +56,4 @@
+                       Qt::Widgets
+                       ${SHIBOKEN_PYTHON_LIBRARIES})
+ 
+-install(TARGETS PySidePlugin LIBRARY DESTINATION "${QT6_INSTALL_PLUGINS}/designer")
++install(TARGETS PySidePlugin LIBRARY DESTINATION "plugins/designer")

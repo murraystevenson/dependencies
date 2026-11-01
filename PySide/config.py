@@ -15,16 +15,22 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"PYTHONPATH" : "{buildDir}/python",
 
 	},
 
 	"commands" : [
 
-		"python setup.py --parallel {jobs} --qtpaths={buildDir}/bin/qtpaths6 install",
+		"python setup.py --parallel {jobs} --qtpaths={buildDir}/bin/qtpaths6{executableExtension} install {extraArgs}",
 
 	],
+
+	"variables" : {
+
+		"extraArgs" : "",
+
+	},
 
 	"platform:linux" : {
 
@@ -50,6 +56,29 @@
 			( "{buildDir}/bin/pyside6-uic", "../lib/Python.framework/Versions/Current/bin/pyside6-uic" ),
 
 		]
+
+	},
+
+	"platform:windows" : {
+
+		# Shorten overall paths to avoid the Windows command length limit.
+		"workingDir" : "p",
+
+		"environment" : {
+
+			"PATH" : "{buildDir}\\bin;{buildDir}\\lib;%PATH%",
+			"LLVM_INSTALL_DIR" : "{buildDir}",
+			# PySide will pull in VERSION from the environment if it exists, and
+			# fail because `--ignore-git` conflicts with it.
+			"VERSION" : "",
+
+		},
+
+		"variables" : {
+
+			"extraArgs" : "--ignore-git --openssl={buildDir}\\bin",
+
+		},
 
 	},
 
