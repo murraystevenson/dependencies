@@ -23,14 +23,15 @@
 			" -D ZSTD_BUILD_TESTS=OFF"
 			" ../build/cmake",
 
-		"cd gafferBuild && make -j {jobs} && make install",
+		"cd gafferBuild && cmake --build . --target install --parallel {jobs}",
 
 	],
 
 	"manifest" : [
 
 		"include/zstd.h",
-		"lib/libzstd*{sharedLibraryExtension}*"
+		"{sharedLibraryDir}/{libraryPrefix}zstd*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}zstd*.lib",
 
 	],
 

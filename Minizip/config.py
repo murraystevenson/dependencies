@@ -37,7 +37,7 @@
 			" -D MZ_FETCH_LIBS=OFF"
 			" -D MZ_FORCE_FETCH_LIBS=OFF"
 			" ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
 

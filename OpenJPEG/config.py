@@ -18,14 +18,15 @@
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" ..",
-		"cd build && make install -j {jobs} VERBOSE=1",
+		"cd build && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
 
 	"manifest" : [
 
 		"include/openjpeg-2.4",
-		"lib/libopenjp2*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}openjp2*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}openjp2*.lib",
 
 	],
 

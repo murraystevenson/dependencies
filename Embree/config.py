@@ -31,7 +31,7 @@
 			" -D EMBREE_BACKFACE_CULLING_SPHERES=ON"
 			" -D EMBREE_TASKING_SYSTEM=TBB"
 			" ..",
-		"cd gafferBuild && make install -j {jobs} VERBOSE=1",
+		"cd gafferBuild && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
 
@@ -39,7 +39,8 @@
 
 		"include/embree4",
 
-		"lib/libembree4*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}embree4*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}embree4*.lib",
 
 	],
 

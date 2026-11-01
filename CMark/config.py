@@ -14,13 +14,14 @@
 
 		"mkdir build",
 		"cd build && cmake -D CMAKE_INSTALL_PREFIX={buildDir} ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
 
 	"manifest" : [
 
-		"lib/libcmark*{sharedLibraryExtension}*"
+		"{sharedLibraryDir}/{libraryPrefix}cmark*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}cmark*.lib",
 
 	],
 

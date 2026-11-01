@@ -23,13 +23,15 @@
 			" -D EXPAT_BUILD_TESTS=OFF"
 			" -D EXPAT_BUILD_DOCS=OFF"
 			" ../expat",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
 
 	"manifest" : [
 
-		"lib/libexpat*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/libexpat*{sharedLibraryExtension}*",
+		# Note : Expat uses the "lib" prefix on Windows too.
+		"lib/libexpat*.lib",
 
 	],
 

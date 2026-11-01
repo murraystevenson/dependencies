@@ -23,14 +23,14 @@
 			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" -D OPENPGL_BUILD_STATIC=ON"
 			" ..",
-		"cd gafferBuild && make install -j {jobs}",
+		"cd gafferBuild && cmake --build . --target install --parallel {jobs}",
 
 	],
 
 	"manifest" : [
 
 		"include/openpgl",
-		"lib/libopenpgl*",
+		"lib/{libraryPrefix}openpgl*",
 
 	],
 
