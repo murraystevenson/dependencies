@@ -37,6 +37,10 @@ Dictionary fields
   externally before `build.py` is run.
 - environment : Dictionary of environment variables to provide to the
   build.
+- workingDir : The directory in which to run the build commands. Defaults
+  to the top-level directory of the first download. If the directory doesn't
+  exist, the top-level directory of the first download is renamed to it.
+  This is useful for shortening long paths on Windows.
 - commands : List containing the build commands to be executed.
 - postMovePaths : Dictionary of the form `{ sourcePath : destinationDir }`
   specifying paths to be moved after `commands` have run. Sources may be
@@ -328,7 +332,10 @@ def __buildProject( project, config, buildDir, cleanup ) :
 	fullWorkingDir = os.getcwd()
 
 	decompressedArchives = [ __decompress( "../../" + a, cleanup ) for a in archives ]
-	os.chdir( config.get( "workingDir", decompressedArchives[0] ) )
+	sourceDir = config.get( "workingDir", decompressedArchives[0] )
+	if not os.path.exists( sourceDir ) :
+		os.rename( decompressedArchives[0], sourceDir )
+	os.chdir( sourceDir )
 
 	if config["license"] is not None :
 		licenseDir = os.path.join( buildDir, "doc/licenses" )
