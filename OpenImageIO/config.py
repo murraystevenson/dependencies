@@ -14,7 +14,7 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib:$LD_LIBRARY_PATH",
 
 	},
@@ -37,41 +37,60 @@
 			" -D OIIO_BUILD_TESTS=NO"
 			" -D OIIO_DOWNLOAD_MISSING_TESTDATA=NO"
 			" -D PYTHON_VERSION={pythonVersion}"
+			" -D PYTHON_SITE_DIR={pythonSitePackagesDir}/OpenImageIO"
 			" -D Python3_ROOT_DIR={buildDir}"
 			" -D Python3_FIND_STRATEGY=LOCATION"
 			# This disables `iv`, which fails to build on Mac
 			# due to OpenGL deprecations, and which we've never
 			# packaged anyway.
 			" -D USE_QT=NO"
+			" {extraArgs}"
 			" ..",
-		"cd gafferBuild && make install -j {jobs} VERBOSE=1",
-		"{extraCommands}",
+		"cd gafferBuild && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
 
 	"variables" : {
 
-		"extraCommands" : "",
+		"extraArgs" : "",
 
 	},
 
 	"manifest" : [
 
-		"bin/maketx",
-		"bin/oiiotool",
+		"bin/maketx{executableExtension}",
+		"bin/oiiotool{executableExtension}",
 
 		"include/OpenImageIO",
-		"lib/libOpenImageIO*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}OpenImageIO*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}OpenImageIO*.lib",
 
 		"doc/openimageio.pdf",
 
 	],
 
-	"platform:macos" : {
+	"platform:windows" : {
+
+		"environment" : {
+
+			"PATH" : "{buildDir}/bin;{buildDir}/lib;%PATH%",
+			"CXXFLAGS" : "/utf-8",
+
+		},
 
 		"variables" : {
 
-			"extraCommands" : "mv {buildDir}/lib/python{pythonVersion}/site-packages/OpenImageIO {pythonLibDir}/python{pythonVersion}/site-packages/OpenImageIO"
+			"extraArgs" :
+				" -D ZLIB_INCLUDE_DIR={buildDir}/include"
+				" -D ZLIB_LIBRARY={buildDir}/lib/zlib.lib"
+				" -D PNG_PNG_INCLUDE_DIR={buildDir}/include"
+				" -D PNG_LIBRARY={buildDir}/lib/libpng16.lib"
+				" -D JPEG_INCLUDE_DIR={buildDir}/include"
+				" -D JPEG_LIBRARY={buildDir}/lib/jpeg.lib"
+				" -D TIFF_INCLUDE_DIR={buildDir}/include"
+				" -D TIFF_LIBRARY={buildDir}/lib/tiff.lib"
+				" -D USE_SIMD=sse4.2"
+			,
 
 		},
 
