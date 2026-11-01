@@ -37,31 +37,37 @@
 			" -D PXR_ENABLE_HDF5_SUPPORT=FALSE"
 			" -D PXR_ENABLE_MATERIALX_SUPPORT=TRUE"
 			" -D MATERIALX_STDLIB_DIR={buildDir}/materialX"
-			" -D PXR_PYTHON_SHEBANG='/usr/bin/env python'"
+			" -D PXR_PYTHON_SHEBANG=\"/usr/bin/env python\""
 			" -D Python3_ROOT_DIR={buildDir}"
 			" -D Python3_FIND_STRATEGY=LOCATION"
 			" -D ALEMBIC_DIR={buildDir}/lib"
 			# Needed to prevent CMake picking up system python libraries on Mac.
 			" -D CMAKE_FRAMEWORK_PATH={pythonLibDir}"
+			" {extraArgs}"
 			" ."
 		,
 
-		"make VERBOSE=1 -j {jobs}",
-		"make install",
+		"cmake --build . --target install --parallel {jobs} --verbose",
 
-		"rm -rf {buildDir}/python/pxr",
-		"mv {buildDir}/lib/python/pxr {buildDir}/python",
+		"cmake -E rm -rf {buildDir}/python/pxr",
 
 	],
+
+	"postMovePaths" : {
+
+		"{buildDir}/lib/python/pxr" : "{buildDir}/python",
+
+	},
 
 	"manifest" : [
 
 		"bin/usd*",
-		"bin/sdfdump",
+		"bin/sdfdump{executableExtension}",
 
 		"include/pxr",
 
-		"lib/libusd*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}usd*{sharedLibraryExtension}",
+		"lib/{libraryPrefix}usd*.lib",
 		"lib/usd",
 
 		"python/pxr",
@@ -70,5 +76,18 @@
 		"share/usd",
 
 	],
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"extraArgs" :
+				" -D PXR_ENABLE_PRECOMPILED_HEADERS=0"
+				" -D PYSIDEUICBINARY={buildDir}/bin/uic.exe"
+			,
+
+		},
+
+	},
 
 }
