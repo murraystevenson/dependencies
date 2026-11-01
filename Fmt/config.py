@@ -21,14 +21,15 @@
 			" -D BUILD_SHARED_LIBS=ON"
 			" -D FMT_TEST=OFF "
 			" ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
 
 	"manifest" : [
 
 		"include/fmt",
-		"lib/libfmt*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}fmt*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}fmt*.lib",
 
 	],
 

@@ -14,7 +14,7 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 
 	},
@@ -27,7 +27,7 @@
 		" -D PYBIND11_FINDPYTHON=1"
 		" -D Python_ROOT_DIR={buildDir}"
 		" -D Python_FIND_STRATEGY=LOCATION",
-		"make install",
+		"cmake --build . --target install",
 
 	],
 

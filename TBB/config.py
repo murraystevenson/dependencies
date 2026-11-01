@@ -21,14 +21,15 @@
 			" -D CMAKE_PREFIX_PATH={buildDir}"
 			" -D TBB_TEST=OFF"
 			" ..",
-		"cd build && make install -j {jobs} VERBOSE=1",
+		"cd build && cmake --build . --target install --parallel {jobs} --verbose",
 	],
 
 	"manifest" : [
 
 		"include/tbb",
 		"include/oneapi",
-		"lib/libtbb*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}tbb*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}tbb*.lib",
 
 	],
 

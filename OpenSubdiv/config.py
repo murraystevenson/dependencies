@@ -28,14 +28,15 @@
 			" .."
 		,
 
-		"cd build && make VERBOSE=1 -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
 
 	"manifest" : [
 
 		"include/opensubdiv",
-		"lib/libosd*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}osd*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}osd*.lib",
 
 	],
 

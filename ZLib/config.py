@@ -18,7 +18,7 @@
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_BUILD_TYPE=Release"
 			" ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
 
@@ -26,7 +26,9 @@
 
 		"include/zlib.h",
 		"include/zconf.h",
-		"lib/libz.*{sharedLibraryExtension}*"
+		"lib/libz.*{sharedLibraryExtension}*",
+		"bin/zlib.dll",
+		"lib/zlib.lib",
 
 	],
 

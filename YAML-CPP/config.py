@@ -23,13 +23,14 @@
 			" -D YAML_CPP_BUILD_TESTS=OFF"
 			" -D YAML_CPP_BUILD_CONTRIB=OFF"
 			" ..",
-		"cd build && make -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
 
 	"manifest" : [
 
-		"lib/libyaml-cpp*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}yaml-cpp*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}yaml-cpp*.lib",
 
 	],
 
