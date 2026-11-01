@@ -18,7 +18,7 @@
 		# needs to link to the OIIO libraries.
 		"DYLD_FALLBACK_LIBRARY_PATH" : "{buildDir}/lib",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		# We define `OPTIX_ROOT_DIR` in the build container for
 		# Cycles to find it, but OSL wants `OPTIX_INSTALL_DIR`.
 		"OPTIX_INSTALL_DIR" : "$OPTIX_ROOT_DIR",
@@ -41,31 +41,31 @@
 			" -D OSL_SHADER_INSTALL_DIR={buildDir}/shaders"
 			" -D OSL_BUILD_PLUGINS=0"
 			" -D PYTHON_VERSION={pythonVersion}"
+			" -D PYTHON_SITE_DIR={pythonSitePackagesDir}"
 			" -D Python3_ROOT_DIR={buildDir}"
 			" -D Python3_FIND_STRATEGY=LOCATION"
 			" {extraArguments}"
 			" ..",
-		"cd gafferBuild && make install -j {jobs} VERBOSE=1",
-		"{extraCommands}",
+		"cd gafferBuild && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
 
 	"variables" : {
 
 		"extraArguments" : "",
-		"extraCommands" : "",
 		"useBatched" : "b8_AVX,b8_AVX2,b8_AVX2_noFMA,b8_AVX512,b8_AVX512_noFMA,b16_AVX512,b16_AVX512_noFMA",
 
 	},
 
 	"manifest" : [
 
-		"bin/oslc",
-		"bin/oslinfo",
-		"bin/testshade",
+		"bin/oslc{executableExtension}",
+		"bin/oslinfo{executableExtension}",
+		"bin/testshade{executableExtension}",
 		"include/OSL",
-		"lib/libosl*",
-		"lib/lib*oslexec*",
+		"{sharedLibraryDir}/{libraryPrefix}osl*",
+		"{sharedLibraryDir}/{libraryPrefix}*oslexec*",
+		"lib/{libraryPrefix}*osl*.lib",
 		"shaders",
 
 	],
@@ -77,17 +77,32 @@
 			"extraArguments" : "-D OSL_USE_OPTIX=1",
 
 		},
+
 	},
 
 	"platform:macos" : {
 
 		"variables" : {
 
-			"extraCommands" : "mv {buildDir}/lib/python{pythonVersion}/site-packages/oslquery {pythonLibDir}/python{pythonVersion}/site-packages/oslquery",
 			"useBatched" : "0",
 
 		},
 
-	}
+	},
+
+	"platform:windows" : {
+
+		"variables" : {
+
+			"useBatched" : "0",
+			"extraArguments" :
+				" -D OSL_USE_OPTIX=1"
+				" -D OSL_BUILD_TESTS=OFF"
+				" -D USE_LLVM_BITCODE=ON"
+			,
+
+		},
+
+	},
 
 }
