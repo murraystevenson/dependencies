@@ -14,7 +14,7 @@
 
 	"environment" : {
 
-		"PATH" : "{buildDir}/bin:$PATH",
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"DYLD_FRAMEWORK_PATH" : "{buildDir}/lib",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 		"PYTHONPATH" : "{buildDir}/python"
@@ -23,24 +23,8 @@
 
 	"commands" : [
 
-		"{buildDir}/bin/python setup.py install --root / --prefix {buildDir} {extraArgs}",
+		"python setup.py install --root / --prefix {buildDir} --install-lib {pythonSitePackagesDir}",
 
 	],
-
-	"variables" : {
-
-		"extraArgs" : "",
-
-	},
-
-	"platform:macos" : {
-
-		"variables" : {
-
-			"extraArgs" : "--install-lib {pythonLibDir}/python{pythonVersion}/site-packages",
-
-		}
-
-	},
 
 }

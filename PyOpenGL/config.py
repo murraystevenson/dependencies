@@ -14,6 +14,7 @@
 
 	"environment" : {
 
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 		"DYLD_FRAMEWORK_PATH" : "{buildDir}/lib",
 		"PYTHONPATH" : "{buildDir}/python",
@@ -22,7 +23,7 @@
 
 	"commands" : [
 
-		"{buildDir}/bin/python setup.py install {extraArgs} --root / --prefix {buildDir} --install-lib {buildDir}/python",
+		"python setup.py install {extraArgs} --root / --prefix {buildDir} --install-lib {buildDir}/python",
 
 	],
 
