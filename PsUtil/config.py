@@ -14,6 +14,7 @@
 
 	"environment" : {
 
+		"PATH" : "{buildDir}/bin{pathListSeparator}$PATH",
 		"LD_LIBRARY_PATH" : "{buildDir}/lib",
 		"DYLD_FRAMEWORK_PATH" : "{buildDir}/lib",
 		"PYTHONPATH" : "{buildDir}/python",
@@ -22,30 +23,8 @@
 
 	"commands" : [
 
-		"{buildDir}/bin/python setup.py install --root / --prefix {buildDir} {extraArgs}",
+		"python setup.py install --root / --prefix {buildDir} --install-lib {pythonSitePackagesDir}",
 
 	],
-
-	"variables" : {
-
-		"extraArgs" : "",
-
-	},
-
-	"manifest" : [
-
-		"lib/python{pythonVersion}/site-packages/psutil",
-
-	],
-
-	"platform:macos" : {
-
-		"variables" : {
-
-			"extraArgs" : "--install-lib {pythonLibDir}/python{pythonVersion}/site-packages",
-
-		}
-
-	},
 
 }
