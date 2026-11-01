@@ -40,23 +40,39 @@
 			" .."
 		,
 
-		"cd build && make VERBOSE=1 -j {jobs} && make install",
+		"cd build && cmake --build . --target install --parallel {jobs} --verbose",
+
+	],
+
+	"postMovePaths" : {
 
 		# Cortex builds made with OpenVDB 12 and above require nanobind-static.
 		# If/when more projects require Nanobind, we may want to consider building
 		# it independently.
-		"cp build/openvdb/openvdb/python/libnanobind-static.a {buildDir}/lib",
+		"build/openvdb/openvdb/python/{libraryPrefix}nanobind-static{staticLibraryExtension}" : "{buildDir}/lib",
 
-	],
+	},
 
 	"manifest" : [
 
 		"include/openvdb",
 		"include/nanovdb",
-		"lib/libopenvdb*{sharedLibraryExtension}*",
+		"{sharedLibraryDir}/{libraryPrefix}openvdb*{sharedLibraryExtension}*",
+		"lib/{libraryPrefix}openvdb*.lib",
 		"python/openvdb*",
-		"lib/libnanobind-static.a",
+		"lib/{libraryPrefix}nanobind-static{staticLibraryExtension}",
 
 	],
+
+	"platform:windows" : {
+
+		"postMovePaths" : {
+
+			"{buildDir}/lib/python{pythonVersion}/site-packages/openvdb*.pyd" : "{buildDir}/python",
+			"{buildDir}/lib/python{pythonVersion}/site-packages/*.lib" : "{buildDir}/lib",
+
+		},
+
+	},
 
 }
