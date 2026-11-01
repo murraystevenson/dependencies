@@ -20,7 +20,7 @@
 
 	"commands" : [
 
-		"./configure"
+		"{configure}"
 			" -prefix {buildDir}"
 			" -plugindir {buildDir}/qt/plugins"
 			" -release"
@@ -56,33 +56,42 @@
 			" -qt-harfbuzz"
 			" -nomake examples"
 			" -nomake tests"
-			" {extraArgs}"
-			" -I {buildDir}/include -I {buildDir}/include/freetype2"
+			" -I {buildDir}/include"
 			" -L {buildDir}/lib"
+			" {extraArgs}"
 			" --"
 			" -DCMAKE_OSX_DEPLOYMENT_TARGET={macosDeploymentTarget}"
-			" -DFREETYPE_LIBRARY_RELEASE={buildDir}/lib/libfreetype{sharedLibraryExtension}"
-			" -DPNG_LIBRARY={buildDir}/lib/libpng.a"
+			" {extraCMakeArgs}"
 		,
 
 		"cmake --build . --parallel {jobs} && cmake --install .",
-
-		"cp {buildDir}/libexec/moc {buildDir}/bin",
-		"cp {buildDir}/libexec/rcc {buildDir}/bin",
-		"cp {buildDir}/libexec/uic {buildDir}/bin",
+		"{extraCommands}",
 
 	],
 
+	"variables" : {
+
+		"configure" : "./configure",
+		"extraArgs" : "",
+		"extraCMakeArgs" :
+			" -DFREETYPE_LIBRARY_RELEASE={buildDir}/lib/libfreetype{sharedLibraryExtension}"
+			" -DPNG_LIBRARY={buildDir}/lib/libpng.a"
+		,
+		"extraCommands" : "cp {buildDir}/libexec/moc {buildDir}/libexec/rcc {buildDir}/libexec/uic {buildDir}/bin",
+
+	},
+
 	"manifest" : [
 
-		"bin/moc",
-		"bin/qmake",
-		"bin/rcc",
-		"bin/uic",
+		"bin/moc{executableExtension}",
+		"bin/qmake{executableExtension}",
+		"bin/rcc{executableExtension}",
+		"bin/uic{executableExtension}",
 
 		"include/Qt*",
 
-		"lib/libQt*",
+		"bin/Qt*.dll",
+		"lib/{libraryPrefix}Qt*",
 		"lib/Qt*.framework",
 
 		"mkspecs",
@@ -102,7 +111,7 @@
 
 		"variables" : {
 
-			"extraArgs" : "-xcb -bundled-xcb-xinput",
+			"extraArgs" : "-xcb -bundled-xcb-xinput -I {buildDir}/include/freetype2",
 
 		},
 
@@ -118,7 +127,7 @@
 
 		"variables" : {
 
-			"extraArgs" : "-no-freetype",
+			"extraArgs" : "-no-freetype -I {buildDir}/include/freetype2",
 
 		},
 
@@ -126,11 +135,30 @@
 
 	"platform:windows" : {
 
+		"environment" : {
+
+			"PATH" : "{buildDir}\\bin;%PATH%",
+
+		},
+
 		"variables" : {
 
-			"extraArgs" : "",
+			"configure" : "call configure.bat",
+			"extraArgs" :
+				" -opengl desktop"
+				" -system-zlib"
+				" -skip qtcharts"
+				" -skip qtdatavis3d"
+				" -skip qtremoteobjects"
+				" -skip qtsensors"
+				" -skip qtserialbus"
+				" -skip qtserialport"
+				" -skip qtspeech"
+			,
+			"extraCMakeArgs" : "",
+			"extraCommands" : "",
 
-		}
+		},
 
 	},
 
