@@ -23,4 +23,13 @@
 
 	],
 
+	"platform:windows" : {
+
+		# Python builds its own LibFFI on Windows, so we have nothing to build.
+		# We keep the project so that the license is still included in the package.
+		"commands" : [],
+		"manifest" : [],
+
+	},
+
 }

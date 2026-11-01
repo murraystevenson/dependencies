@@ -30,4 +30,11 @@
 		"enabled" : False,
 
 	},
+
+	"platform:windows" : {
+
+		"enabled" : False,
+
+	},
+
 }
