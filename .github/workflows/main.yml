@@ -52,13 +52,11 @@ jobs:
 
           - name: windows-platform26
             os: windows-2022
-            publish: false
+            publish: true
             jobs: 4
             containerImage:
-            # Something simple to start. When ready, the projects below should be included in the first job.
-            partOneProjects: --projects GafferResources
-            # partOneProjects: --projects LibFFI TBB Python ZLib Boost Imath OpenEXR HDF5 Alembic BitstreamVera Blosc CMark PyBind11 LibJPEG-Turbo LibTIFF LibPNG OpenJPEG Expat YAML-CPP PyString Minizip OpenColorIO LibRaw PugiXML Fmt LibWebP FreeType OpenImageIO LLVM OpenShadingLanguage GLEW OpenVDB OpenSubdiv PyOpenGL Qt PySide
-            partTwoProjects: --projects GafferResources  # Just verify this second job works for now.
+            partOneProjects: --projects LibFFI TBB Python ZLib Boost Imath OpenEXR HDF5 Alembic BitstreamVera Blosc CMark PyBind11 LibJPEG-Turbo LibTIFF LibPNG OpenJPEG Expat YAML-CPP PyString Minizip OpenColorIO LibRaw PugiXML Fmt LibWebP FreeType OpenImageIO LLVM OpenShadingLanguage GLEW OpenVDB OpenSubdiv PyOpenGL Qt PySide
+            partTwoProjects:  # Blank to build all remaining projects.
 
     uses: ./.github/workflows/buildPlatform.yml
     with:
