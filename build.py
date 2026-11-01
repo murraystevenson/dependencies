@@ -6,6 +6,7 @@ import glob
 import hashlib
 import json
 import os
+import pathlib
 import operator
 import multiprocessing
 import subprocess
@@ -36,6 +37,12 @@ Dictionary fields
 - environment : Dictionary of environment variables to provide to the
   build.
 - commands : List containing the build commands to be executed.
+- postMovePaths : Dictionary of the form `{ sourcePath : destinationDir }`
+  specifying paths to be moved after `commands` have run. Sources may be
+  files or directories, and may contain standard glob matching patterns.
+  Directories are merged into any existing directory at the destination.
+  Destination directories are created if needed. This is useful for avoiding
+  platform-specific copy commands.
 - enabled : May be set to `False` to disable a project entirely. This is
   only expected to be useful in conjunction with platform overrides or
   variants.
@@ -160,7 +167,7 @@ def __substitute( config, variables, forDigest = False ) :
 	def substituteWalk( o ) :
 
 		if isinstance( o, dict ) :
-			return { k : substituteWalk( v ) for k, v in o.items() }
+			return { substituteWalk( k ) : substituteWalk( v ) for k, v in o.items() }
 		elif isinstance( o, list ) :
 			return [ substituteWalk( x ) for x in o ]
 		elif isinstance( o, tuple ) :
@@ -191,6 +198,7 @@ def __updateDigest( project, config ) :
 	__appendHash( config["digest"], config.get( "environment" ) )
 	__appendHash( config["digest"], config.get( "commands" ) )
 	__appendHash( config["digest"], config.get( "symbolicLinks" ) )
+	__appendHash( config["digest"], config.get( "postMovePaths" ) )
 	for e in config.get( "requiredEnvironment", [] ) :
 		__appendHash( config["digest"], os.environ.get( e, "" ) )
 
@@ -323,6 +331,30 @@ def __buildProject( project, config, buildDir, cleanup ) :
 	for command in config["commands"] :
 		sys.stderr.write( command + "\n" )
 		subprocess.check_call( command, shell = True, env = environment )
+
+	movedDirectories = []
+	moves = {}
+	for source, destination in config.get( "postMovePaths", {} ).items() :
+		destination = pathlib.Path( destination )
+		for path in [ pathlib.Path( p ) for p in glob.glob( source ) ] :
+			sys.stderr.write( "Moving {} to {}\n".format( path, destination ) )
+			if path.is_dir() :
+				# Merge with any existing directory, rather than replacing it.
+				for f in path.glob( "**/*" ) :
+					if f.is_file() :
+						moves[f] = destination / f.relative_to( path.parent )
+				movedDirectories.append( path )
+			else :
+				moves[path] = destination / path.name
+
+	for source, destination in moves.items() :
+		destination.parent.mkdir( parents = True, exist_ok = True )
+		source.replace( destination )
+
+	# Remove the directories we merged, which are now empty, as `mv` would.
+	for directory in movedDirectories :
+		for root, dirs, files in os.walk( directory, topdown = False ) :
+			os.rmdir( root )
 
 	for link in config.get( "symbolicLinks", [] ) :
 		sys.stderr.write( "Linking {} to {}\n".format( link[0], link[1] ) )
