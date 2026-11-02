@@ -598,6 +598,7 @@ variables = {
 	"pythonModuleExtension" : { "win32": ".pyd" }.get( sys.platform, ".so" ),
 	"executableExtension" : { "win32": ".exe" }.get( sys.platform, "" ),
 	"libraryPrefix" : { "win32": "" }.get( sys.platform, "lib" ),
+	"pathListSeparator" : { "win32": ";" }.get( sys.platform, ":" ),
 	"c++Standard" : "20",
 	"macosDeploymentTarget" : "14.0",
 	"compilerRoot" : __compilerRoot(),
