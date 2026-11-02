@@ -66,7 +66,6 @@
 		"include/OSL",
 		"lib/libosl*",
 		"lib/lib*oslexec*",
-		"doc/osl*",
 		"shaders",
 
 	],

@@ -65,8 +65,6 @@
 		"include/OpenImageIO",
 		"lib/libOpenImageIO*{sharedLibraryExtension}*",
 
-		"doc/openimageio.pdf",
-
 	],
 
 	"platform:macos" : {

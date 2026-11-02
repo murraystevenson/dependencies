@@ -49,8 +49,6 @@
 
 		"lib/libAlembic*",
 
-		"python/alembic*",
-
 	],
 
 }
