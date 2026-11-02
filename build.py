@@ -252,6 +252,13 @@ def __loadConfigs( variables, variants ) :
 			environment.setdefault( "CMAKE_BUILD_TYPE", "Release" )
 			environment.setdefault( "CC", "cl" )
 			environment.setdefault( "CXX", "cl" )
+			# C++ flags needed by all projects. `-Zc:inline` is the default
+			# for Visual Studio projects but not for the command line, and
+			# `BOOST_ALL_NO_LIB` disables Boost's auto-linking.
+			cxxFlags = [ "-Zc:inline", "-DBOOST_ALL_NO_LIB" ]
+			if "CXXFLAGS" in environment :
+				cxxFlags.append( environment["CXXFLAGS"] )
+			environment["CXXFLAGS"] = " ".join( cxxFlags )
 
 		if config.get( "enabled", True ) :
 			configs[project] = config
