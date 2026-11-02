@@ -64,7 +64,9 @@ Dictionary fields
 - license : The name of the license file within the source.
 - credit : Any specific credit required to be given to the project.
 - manifest : List of output files to include in the final package.
-  May contain standard glob matching patterns.
+  May contain standard glob matching patterns. A warning is emitted for
+  entries that don't match any files, unless they are for a file type
+  that only exists on other platforms, such as `.lib` on Linux.
 
 ### Variable substitution
 
@@ -483,6 +485,15 @@ def __buildPackage( projects, configs, buildDir, package ) :
 	files = { "doc/licenses" }
 	projectManifest = []
 
+	# Manifests are shared between platforms, so entries for file types
+	# that only exist on other platforms are expected not to match.
+	platformExtensions = {
+		"linux" : { ".so", ".a" },
+		"macos" : { ".so", ".a", ".dylib", ".framework" },
+		"windows" : { ".dll", ".lib", ".exe", ".pyd" },
+	}
+	foreignExtensions = set().union( *platformExtensions.values() ) - platformExtensions[__platform()]
+
 	def walk( project, configs, buildDir ) :
 
 		if project in visited :
@@ -492,7 +503,10 @@ def __buildPackage( projects, configs, buildDir, package ) :
 			walk( dependency, configs, buildDir )
 
 		for pattern in configs[project].get( "manifest", [] ) :
-			for f in glob.glob( os.path.join( buildDir, pattern ) ) :
+			matches = glob.glob( os.path.join( buildDir, pattern ) )
+			if not matches and os.path.splitext( pattern.rstrip( "*" ) )[1] not in foreignExtensions :
+				sys.stderr.write( "WARNING : {} manifest entry \"{}\" does not match any files\n".format( project, pattern ) )
+			for f in matches :
 				files.add( os.path.relpath( f, buildDir ) )
 
 		m = {
