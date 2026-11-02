@@ -601,6 +601,8 @@ variables = {
 	"pathListSeparator" : { "win32": ";" }.get( sys.platform, ":" ),
 	"c++Standard" : "20",
 	"macosDeploymentTarget" : "14.0",
+	"msvcToolset" : "v143",
+	"windowsSDKVersion" : "10.0.22621.0",
 	"compilerRoot" : __compilerRoot(),
 	"variants" : "".join( "-{}{}".format( key, variants[key] ) for key in sorted( variants.keys() ) ),
 }
