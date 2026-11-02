@@ -46,8 +46,11 @@ Dictionary fields
   specifying paths to be moved after `commands` have run. Sources may be
   files or directories, and may contain standard glob matching patterns.
   Directories are merged into any existing directory at the destination.
-  Destination directories are created if needed. This is useful for avoiding
-  platform-specific copy commands.
+  Sources containing `**` match files recursively, and preserve their paths
+  relative to the directory preceding the `**`. For example,
+  `{ "src/**/*.h" : "{buildDir}/include" }` moves `src/a/b.h` to
+  `{buildDir}/include/a/b.h`. Destination directories are created if needed.
+  This is useful for avoiding platform-specific copy commands.
 - enabled : May be set to `False` to disable a project entirely. This is
   only expected to be useful in conjunction with platform overrides or
   variants.
@@ -386,6 +389,15 @@ def __buildProject( project, config, buildDir, cleanup ) :
 	moves = {}
 	for source, destination in config.get( "postMovePaths", {} ).items() :
 		destination = pathlib.Path( destination )
+		if "**" in source :
+			# Recursive pattern. Move matching files only, preserving their
+			# paths relative to the directory preceding the `**`.
+			sys.stderr.write( "Moving {} to {}\n".format( source, destination ) )
+			root = pathlib.Path( source.partition( "**" )[0] )
+			for path in [ pathlib.Path( p ) for p in glob.glob( source, recursive = True ) ] :
+				if path.is_file() :
+					moves[path] = destination / path.relative_to( root )
+			continue
 		for path in [ pathlib.Path( p ) for p in glob.glob( source ) ] :
 			sys.stderr.write( "Moving {} to {}\n".format( path, destination ) )
 			if path.is_dir() :
