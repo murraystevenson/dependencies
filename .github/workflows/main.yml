@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - '*_maintenance'
+      - 'combinedCI'
   pull_request:
     branches:
       - '*'
