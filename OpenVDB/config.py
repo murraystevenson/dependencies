@@ -37,7 +37,6 @@
 			" -D Python_FIND_VERSION={pythonVersion}"
 			" -D Python_FIND_VERSION_MAJOR={pythonMajorVersion}"
 			" -D BOOST_ROOT={buildDir}"
-			" -D Boost_NO_SYSTEM_PATHS=ON"
 			" .."
 		,
 
