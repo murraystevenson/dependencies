@@ -107,11 +107,7 @@
 			"useBatched" : "0",
 			"extraArguments" :
 				" -D OSL_USE_OPTIX=1"
-				" -D OSL_BUILD_TESTS=OFF"
-				" -D LLVM_DIRECTORY={buildDir}"
 				" -D USE_LLVM_BITCODE=ON"
-				" -D ZLIB_INCLUDE_DIR={buildDir}\\include"
-				" -D ZLIB_LIBRARY={buildDir}\\lib\\zlib.lib"
 				" -D EXTRA_CPP_ARGS=\" /D TINYFORMAT_ALLOW_WCHAR_STRINGS\""
 			,
 
