@@ -18,6 +18,7 @@
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 			" -D BUILD_SHARED_LIBS=ON"
+			" -D CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON"
 			" ..",
 		"cd build && cmake --build . --target install --parallel {jobs}",
 
