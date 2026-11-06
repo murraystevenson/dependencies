@@ -43,10 +43,6 @@
 		"variables" : {
 
 			"pngShared" : "ON",
-			"extraArgs" :
-				" -D ZLIB_INCLUDE_DIR={buildDir}\\include"
-				" -D ZLIB_LIBRARY={buildDir}\\lib\\zlib.lib"
-			,
 
 		},
 

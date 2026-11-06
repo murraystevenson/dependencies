@@ -61,7 +61,6 @@
 
 			"extraArgs" :
 				" -D USE_STATIC_HDF5=ON"
-				" -D USE_PYALEMBIC=OFF"
 			,
 
 		},
