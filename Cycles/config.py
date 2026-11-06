@@ -31,12 +31,7 @@
 		"variables" : {
 
 			"extraArgs" :
-				" -D OPTIX_ROOT_DIR={buildDir}"
 				" -D CUDA_TOOLKIT_ROOT_DIR=\"%CUDA_TOOLKIT_ROOT_DIR%\""
-				" -D TBB_ROOT_DIR={buildDir}"
-				" -D OPENVDB_ROOT_DIR={buildDir}"
-				" -D NANOVDB_INCLUDE_DIR={buildDir}/include"
-				" -D JPEG_ROOT_DIR={buildDir}"
 				" -D PLATFORM_BUNDLED_LIBRARY_DIRS={buildDir}\\bin;{buildDir}\\lib;%PATH%"
 				" -D CMAKE_EXE_LINKER_FLAGS=\"/LIBPATH:{buildDir}/lib\""
 			,
