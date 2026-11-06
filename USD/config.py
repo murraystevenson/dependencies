@@ -96,11 +96,8 @@
 
 			"extraArgs" :
 				" -D PXR_INSTALL_LOCATION={buildDir}/bin/usd"
-				" -D PXR_USE_PYTHON_3=TRUE"
-				" -D OIIO_BASE_DIR={buildDir}"
 				" -D PXR_ENABLE_PRECOMPILED_HEADERS=0"
 				" -D PYSIDEUICBINARY={buildDir}/bin/uic.exe"
-				" -D PYSIDEUIC_EXTRA_ARGS=\"-g python\""
 			,
 
 		},
