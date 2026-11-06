@@ -80,17 +80,7 @@
 
 		"variables" : {
 
-			"extraArgs" :
-				" -D ZLIB_INCLUDE_DIR={buildDir}/include"
-				" -D ZLIB_LIBRARY={buildDir}/lib/zlib.lib"
-				" -D PNG_PNG_INCLUDE_DIR={buildDir}/include"
-				" -D PNG_LIBRARY={buildDir}/lib/libpng16.lib"
-				" -D JPEG_INCLUDE_DIR={buildDir}/include"
-				" -D JPEG_LIBRARY={buildDir}/lib/jpeg.lib"
-				" -D TIFF_INCLUDE_DIR={buildDir}/include"
-				" -D TIFF_LIBRARY={buildDir}/lib/tiff.lib"
-				" -D USE_SIMD=sse4.2"
-			,
+			"extraArgs" : " -D USE_SIMD=sse4.2",
 
 		},
 
