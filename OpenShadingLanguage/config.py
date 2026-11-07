@@ -107,6 +107,7 @@
 			"useBatched" : "0",
 			"extraArguments" :
 				" -D OSL_USE_OPTIX=1"
+				" -D OSL_BUILD_TESTS=OFF"
 				" -D USE_LLVM_BITCODE=ON"
 				" -D EXTRA_CPP_ARGS=\" /D TINYFORMAT_ALLOW_WCHAR_STRINGS\""
 			,
