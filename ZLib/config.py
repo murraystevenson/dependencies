@@ -26,7 +26,7 @@
 
 		"include/zlib.h",
 		"include/zconf.h",
-		"lib/libz.*{sharedLibraryExtension}*",
+		"lib/libz*{sharedLibraryExtension}*",
 		"bin/zlib.dll",
 		"lib/zlib.lib",
 
