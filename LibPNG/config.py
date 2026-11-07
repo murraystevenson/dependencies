@@ -25,7 +25,6 @@
 			" -D PNG_TOOLS=OFF"
 			" -D PNG_FRAMEWORK=OFF"
 			" -D CMAKE_POSITION_INDEPENDENT_CODE=ON"
-			" {extraArgs}"
 			" ..",
 		"cd build && cmake --build . --target install --parallel {jobs}",
 
@@ -34,7 +33,6 @@
 	"variables" : {
 
 		"pngShared" : "OFF",
-		"extraArgs" : "",
 
 	},
 
