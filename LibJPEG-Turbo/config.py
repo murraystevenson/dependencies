@@ -16,17 +16,10 @@
 			" cmake"
 			" -D CMAKE_INSTALL_PREFIX={buildDir}"
 			" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
-			" {extraArgs}"
 			" ..",
 		"cd build && cmake --build . --target install --parallel {jobs}",
 
 	],
-
-	"variables" : {
-
-		"extraArgs" : "",
-
-	},
 
 	"manifest" : [
 
@@ -42,15 +35,5 @@
 		"lib/jpeg.lib",
 
 	],
-
-	"platform:windows" : {
-
-		"variables" : {
-
-			"extraArgs" : "-D WITH_SIMD=OFF",
-
-		},
-
-	},
 
 }
