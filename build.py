@@ -347,7 +347,7 @@ def __buildProject( project, config, buildDir, cleanup ) :
 		if os.path.exists( archivePath ) :
 			continue
 
-		downloadCommand = [ "curl", "--location", "--retry", "5", "--output", archivePath, download ]
+		downloadCommand = [ "curl", "--location", "--retry", "10", "--retry-all-errors", "--output", archivePath, download ]
 		sys.stderr.write( " ".join( downloadCommand ) + "\n" )
 		subprocess.check_call( downloadCommand )
 
