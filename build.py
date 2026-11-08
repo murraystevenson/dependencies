@@ -631,6 +631,7 @@ variables = {
 	"windowsSDKVersion" : "10.0.22621.0",
 	"compilerRoot" : __compilerRoot(),
 	"variants" : "".join( "-{}{}".format( key, variants[key] ) for key in sorted( variants.keys() ) ),
+	"extraArgs" : "",
 }
 
 configs = __loadConfigs( variables, variants )
