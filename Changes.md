@@ -2,6 +2,7 @@
 ------
 
 - Cycles : Updated to 5.3.0.
+- OpenShadingLanguage : Patch to fix compiling of CUDA PTX for Cycles.
 
 12.0.0a1 (relative to 11.0.0)
 --------
