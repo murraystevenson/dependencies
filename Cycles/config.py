@@ -16,6 +16,13 @@
 
 		"extraDependencies" : [ "SSE2NEON" ],
 
+		"variables" : {
+
+			"withCUDA" : "OFF",
+			"withOptix" : "OFF",
+
+		},
+
 	},
 
 	"platform:windows" : {
@@ -58,10 +65,10 @@
 			" -D WITH_LIBS_PRECOMPILED=OFF"
 			" -D WITH_CYCLES_OPENIMAGEDENOISE=OFF"
 			" -D WITH_CYCLES_PATH_GUIDING=ON"
-			" -D WITH_CYCLES_CUDA_BINARIES=ON"
-			" -D WITH_CYCLES_DEVICE_CUDA=ON"
+			" -D WITH_CYCLES_CUDA_BINARIES={withCUDA}"
+			" -D WITH_CYCLES_DEVICE_CUDA={withCUDA}"
 			" -D WITH_CYCLES_DEVICE_HIP=OFF"
-			" -D WITH_CYCLES_DEVICE_OPTIX=ON"
+			" -D WITH_CYCLES_DEVICE_OPTIX={withOptix}"
 			" -D WITH_CYCLES_HYDRA_RENDER_DELEGATE=OFF"
 			" -D CMAKE_POSITION_INDEPENDENT_CODE=ON"
 			" -D WITH_CYCLES_USD=OFF"
@@ -70,6 +77,13 @@
 		"cd build && cmake --build . --target install --parallel {jobs} --verbose",
 
 	],
+
+	"variables" : {
+
+		"withCUDA" : "ON",
+		"withOptix" : "ON",
+
+	},
 
 	"postMovePaths" : {
 
