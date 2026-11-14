@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - '*_maintenance'
+      - 'ocio25'
   pull_request:
     branches:
       - '*'
