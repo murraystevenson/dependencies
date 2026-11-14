@@ -1,6 +1,7 @@
 12.x.x (relative to 12.0.0a1)
 ------
 
+- Expat : Updated to version 2.10.0.
 - PyString : Updated to version 1.2.0.
 - YAML-CPP : Updated to version 0.9.0.
 
