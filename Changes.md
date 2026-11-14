@@ -1,7 +1,7 @@
 12.x.x (relative to 12.0.0a1)
 ------
 
-
+- YAML-CPP : Updated to version 0.9.0.
 
 12.0.0a1 (relative to 11.0.0)
 --------
