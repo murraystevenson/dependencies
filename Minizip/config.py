@@ -49,7 +49,7 @@
 		# to use, so don't need to package anything.
 
 	],
-    
+
 	"platform:windows" : {
 
 		"commands" : [
@@ -72,6 +72,7 @@
 				" -D MZ_LZMA=OFF"
 				" -D MZ_LIBCOMP=OFF"
 				" -D MZ_ZSTD=OFF"
+				" -D MZ_PPMD=OFF"
 				" -D MZ_PKCRYPT=OFF"
 				" -D MZ_WZAES=OFF"
 				" -D MZ_SIGNING=OFF"
@@ -79,6 +80,7 @@
 				" -D MZ_ICONV=OFF"
 				" -D MZ_FETCH_LIBS=OFF"
 				" -D MZ_FORCE_FETCH_LIBS=OFF"
+				" -D CMAKE_POSITION_INDEPENDENT_CODE=ON"
 				" ..",
 			"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 
