@@ -32,7 +32,7 @@
 	],
 
 	"platform:windows" : {
-		
+
 		"commands" : [
 
 			"mkdir build",
@@ -42,6 +42,7 @@
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
 				" -D CMAKE_INSTALL_LIBDIR={buildDir}/lib"
 				" -D CMAKE_BUILD_TYPE={cmakeBuildType}"
+				" -D CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON"
 				" -D BUILD_SHARED_LIBS=ON"
 				" ..",
 			"cd build && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
