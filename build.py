@@ -19,7 +19,7 @@ import stat
 import pathlib
 import time
 
-__version = "12.0.0a1"
+__version = "12.0.0a2"
 
 """
 Config file format
