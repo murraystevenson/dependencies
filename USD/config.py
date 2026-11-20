@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/PixarAnimationStudios/OpenUSD/archive/refs/tags/v26.05.tar.gz"
+		"https://github.com/PixarAnimationStudios/OpenUSD/archive/refs/tags/v26.11.1.tar.gz"
 
 	],
 
@@ -37,11 +37,11 @@
 			" -D PXR_ENABLE_HDF5_SUPPORT=FALSE"
 			" -D PXR_ENABLE_MATERIALX_SUPPORT=TRUE"
 			" -D MATERIALX_STDLIB_DIR={buildDir}/materialX"
+			" -D PXR_PYTHON_INSTALL_DIR={buildDir}/python"
 			" -D PXR_PYTHON_SHEBANG='/usr/bin/env python'"
 			" -D Python3_ROOT_DIR={buildDir}"
 			" -D Python3_FIND_STRATEGY=LOCATION"
 			" -D ALEMBIC_DIR={buildDir}/lib"
-			" -D OPENEXR_LOCATION={buildDir}/lib"
 			# Needed to prevent CMake picking up system python libraries on Mac.
 			" -D CMAKE_FRAMEWORK_PATH={pythonLibDir}"
 			" ."
@@ -49,9 +49,6 @@
 
 		"make VERBOSE=1 -j {jobs}",
 		"make install",
-
-		"rm -rf {buildDir}/python/pxr",
-		"mv {buildDir}/lib/python/pxr {buildDir}/python",
 
 	],
 
@@ -152,6 +149,7 @@
 				" -D CMAKE_INSTALL_PREFIX={buildDir}"
 				" -D CMAKE_PREFIX_PATH={buildDir}"
 				" -D PXR_INSTALL_LOCATION={buildDir}/bin/usd"
+				" -D PXR_PYTHON_INSTALL_DIR={buildDir}/python"
 				" -D Boost_NO_SYSTEM_PATHS=TRUE"
 				" -D Boost_NO_BOOST_CMAKE=TRUE"
 				" -D PXR_ENABLE_OPENVDB_SUPPORT=TRUE"
@@ -167,7 +165,6 @@
 				" -D Python3_ROOT_DIR={buildDir}"
 				" -D Python3_FIND_STRATEGY=LOCATION"
 				" -D ALEMBIC_DIR={buildDir}\\lib"
-				" -D OPENEXR_LOCATION={buildDir}\\lib"
 				" -D PXR_USE_PYTHON_3=TRUE"
 				" -D OIIO_BASE_DIR={buildDir}"
 				" -D PXR_ENABLE_PRECOMPILED_HEADERS=0"
@@ -179,12 +176,6 @@
 			"cd gafferBuild && cmake --build . --config {cmakeBuildType} --target install -- -j {jobs}",
 
 		],
-
-		"postMovePaths" : {
-
-			"{buildDir}/lib/python/pxr" : "{buildDir}/python",
-
-		}
 
 	},
 
