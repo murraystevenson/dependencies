@@ -398,7 +398,11 @@ def __buildPackage( projects, configs, buildDir, package ) :
 			walk( dependency, configs, buildDir )
 
 		for pattern in configs[project].get( "manifest", [] ) :
-			for f in glob.glob( os.path.join( buildDir, pattern ) ) :
+			matches = glob.glob( os.path.join( buildDir, pattern ) )
+			if not matches :
+				sys.stderr.write( "::warning::{} manifest entry \"{}\" does not match any files\n".format( project, pattern ) )
+
+			for f in matches :
 				files.add( os.path.relpath( f, buildDir ) )
 
 		m = {
