@@ -2,7 +2,7 @@
 
 	"downloads" : [
 
-		"https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.14.11.0.tar.gz"
+		"https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v1.15.8.0.tar.gz"
 
 	],
 
@@ -116,6 +116,7 @@
 		"environment" : {
 			"PATH" : "{buildDir}\\lib;{buildDir}\\bin;%ROOT_DIR%\\OpenShadingLanguage\\working\\OpenShadingLanguage-Release-{version}\\gafferBuild\\src\\liboslcomp;%ROOT_DIR%\\OpenShadingLanguage\\working\\OpenShadingLanguage-Release-{version}\\gafferBuild\\src\\oslc;%PATH%",
 			"CXXFLAGS" : "/utf-8",
+			"_CL_" : "/Zc:lambda-",
 		},
 
 		"commands" : [
